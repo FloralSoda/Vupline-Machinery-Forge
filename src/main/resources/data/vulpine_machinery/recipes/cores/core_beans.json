@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" B ",
+		"BCB",
+		" B "
+	],
+	"key": {
+		"B": {
+			"item": "vulpine_machinery:beans"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_bean"
+	}
+}

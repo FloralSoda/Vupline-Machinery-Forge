@@ -1,0 +1,14 @@
+{
+	"type":"minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "vulpine_machinery:bullet"
+		},
+		{
+			"item": "minecraft:ender_pearl"
+		}
+	],
+	"result": {
+		"item": "vulpine_machinery:bullet_ender"
+	}
+}

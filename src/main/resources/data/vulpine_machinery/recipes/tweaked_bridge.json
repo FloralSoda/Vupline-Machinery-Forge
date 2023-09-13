@@ -1,0 +1,14 @@
+{
+	"type":"minecraft:crafting_shapeless",
+	"ingredients": [
+		{
+			"item": "vulpine_machinery:bridge"
+		},
+		{
+			"item": "minecraft:glowstone_dust"
+		}
+	],
+	"result": {
+		"item": "vulpine_machinery:mechanized_bridge"
+	}
+}

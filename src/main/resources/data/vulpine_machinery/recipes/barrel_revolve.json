@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" NN",
+		"NRN",
+		"NN "
+	],
+	"key": {
+		"N": {
+			"item": "minecraft:iron_nugget"
+		},
+		"R": {
+			"item": "minecraft:redstone"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:barrel_revolve"
+	}
+}

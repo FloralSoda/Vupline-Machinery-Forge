@@ -1,0 +1,6 @@
+{
+  "parent" : "item/generated",
+  "textures": {
+    "layer0": "vulpine_machinery:item/gun_parts/barrel_slug"
+  }
+}

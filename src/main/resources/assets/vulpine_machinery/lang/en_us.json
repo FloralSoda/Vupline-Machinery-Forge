@@ -1,0 +1,44 @@
+{
+	"itemGroup.vulpine_machinery.main": "Vulpin Armory",
+	
+	"block.vulpine_machinery.gunsmithing_table": "Gunsmithing Table",
+	
+	"item.vulpine_machinery.bullet": "Bullet",
+	"item.vulpine_machinery.bullet_ender": "Ender Infused Bullet",
+	"item.vulpine_machinery.bullet_prismarine": "Prismarine Infused Bullet",
+	"item.vulpine_machinery.bullet_soul": "Soul Infused Bullet",
+	"item.vulpine_machinery.barrel_muffle": "Muffled Barrel",
+	"item.vulpine_machinery.barrel_revolve": "Revolving Barrel",
+	"item.vulpine_machinery.barrel_shotgun": "Shotgun Barrel",
+	"item.vulpine_machinery.barrel_slug": "Slug Barrel",
+	"item.vulpine_machinery.bridge": "Gun Bridge",
+	"item.vulpine_machinery.mechanized_bridge": "Mechanized Bridge",
+	"item.vulpine_machinery.tweaked_bridge": "Tweaked Bridge",
+	"item.vulpine_machinery.handle": "Gun Handle",
+	
+	"item.vulpine_machinery.core_assassin": "Assassin's Gun Core",
+	"item.vulpine_machinery.core_bean": "Bean",
+	"item.vulpine_machinery.core_cursed": "Cursed Gun Core",
+	"item.vulpine_machinery.core_ender": "Ender Infused Gun Core",
+	"item.vulpine_machinery.core_flame": "Flaming Gun Core",
+	"item.vulpine_machinery.core_health": "Healing Gun Core",
+	"item.vulpine_machinery.core_ice": "Frosting Gun Core",
+	"item.vulpine_machinery.core_prismarine": "Prismarine Infused Gun Core",
+	"item.vulpine_machinery.core_shield": "Shielding Gun Core",
+	"item.vulpine_machinery.core_slime": "Slimey Gun Core",
+	"item.vulpine_machinery.core_standard": "Gun Core",
+	"item.vulpine_machinery.core_wither": "Withering Gun Core",
+	
+	"item.vulpine_machinery.pepperbox_revolve": "Revolver Pepperbox",
+	"item.vulpine_machinery.pepperbox_shotgun": "Shotgun Pepperbox",
+	"item.vulpine_machinery.pepperbox_slug": "Hand Cannon",
+	"item.vulpine_machinery.pepperbox_muffled": "Muffled Pepperbox",
+	
+	"item.vulpine_machinery.blueprint": "Blueprint: %s",
+	"item.vulpine_machinery.beans": "Beans",
+	
+	"sounds.vulpine_machinery.gunshot": "Gunshot",
+	"sounds.vulpine_machinery.heavy_gunshot": "Heavy Gunshot",
+	"sounds.vulpine_machinery.hand_cannon_gunshot": "Thumping Gunshot",
+	"sounds.vulpine_machinery.muffled_gunshot": "Click"
+}

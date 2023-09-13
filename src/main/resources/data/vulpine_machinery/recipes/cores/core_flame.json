@@ -1,0 +1,22 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" PF",
+		"PCP",
+		"FP "
+	],
+	"key": {
+		"F": {
+			"item": "minecraft:fire_charge"
+		},
+		"P": {
+			"item": "minecraft:blaze_powder"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_flame"
+	}
+}

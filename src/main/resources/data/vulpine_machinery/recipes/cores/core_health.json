@@ -1,0 +1,25 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" TL",
+		"TCM",
+		"LM "
+	],
+	"key": {
+		"I": {
+			"tag": "forge:ingots/iron"
+		},
+		"G": {
+			"item": "minecraft:gunpower"
+		},
+		"L": {
+			"item": "minecraft:golden_apple"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_health"
+	}
+}

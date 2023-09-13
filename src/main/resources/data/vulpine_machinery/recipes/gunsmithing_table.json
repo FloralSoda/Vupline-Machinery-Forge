@@ -1,0 +1,21 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		"DP",
+		"WW"
+	],
+	"key": {
+		"D": {
+			"item": "minecraft:blue_dye"
+		},
+		"P": {
+			"item": "minecraft:paper"
+		},
+		"W": {
+			"tag": "minecraft:planks"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:gunsmithing_table"
+	}
+}

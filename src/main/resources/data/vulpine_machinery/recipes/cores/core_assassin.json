@@ -1,0 +1,25 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" NE",
+		"NCN",
+		"BN "
+	],
+	"key": {
+		"N": {
+			"item": "minecraft:netherite_scrap"
+		},
+		"E": {
+			"item": "minecraft:spider_eye"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		},
+		"B": {
+			"item": "minecraft:dragon_breath"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_assassin"
+	}
+}

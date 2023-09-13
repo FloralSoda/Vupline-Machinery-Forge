@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" NN",
+		"NWN",
+		"NN "
+	],
+	"key": {
+		"N": {
+			"item": "minecraft:iron_nugget"
+		},
+		"W": {
+			"tag": "minecraft:wool"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:barrel_muffle"
+	}
+}

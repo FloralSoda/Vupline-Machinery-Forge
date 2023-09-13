@@ -1,0 +1,22 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" DA",
+		"DCD",
+		"AD "
+	],
+	"key": {
+		"D": {
+			"tag": "forge:gems/diamond"
+		},
+		"A": {
+			"item": "minecraft:golden_apple"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_shield"
+	}
+}

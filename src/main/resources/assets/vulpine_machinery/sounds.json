@@ -1,0 +1,44 @@
+{
+	"gunshot": {
+		"subtitle": "sounds.vulpine_machinery.gunshot",
+		"sounds": [
+			"vulpine_machinery:gunshot_near"
+		]
+	},
+	"gunshot_far": {
+		"subtitle": "sounds.vulpine_machinery.gunshot",
+		"sounds": [
+			"vulpine_machinery:gunshot_far"
+		]
+	},
+	"heavy_gunshot": {
+		"subtitle": "sounds.vulpine_machinery.heavy_gunshot",
+		"sounds": [
+			"vulpine_machinery:heavy_gunshot_near"
+		]
+	},
+	"heavy_gunshot_far": {
+		"subtitle": "sounds.vulpine_machinery.heavy_gunshot",
+		"sounds": [
+			"vulpine_machinery:heavy_gunshot_far"
+		]
+	},
+	"hand_cannon": {
+		"subtitle": "sounds.vulpine_machinery.hand_cannon",
+		"sounds": [
+			"vulpine_machinery:hand_cannon_near"
+		]
+	},
+	"hand_cannon_far": {
+		"subtitle": "sounds.vulpine_machinery.hand_cannon",
+		"sounds": [
+			"vulpine_machinery:hand_cannon_far"
+		]
+	}
+	"muffled_gunshot": {
+		"subtitle": "sounds.vulpine_machinery.muffled_gunshot",
+		"sounds": [
+			"vulpine_machinery:muffled_gunshot"
+		]
+	}
+}

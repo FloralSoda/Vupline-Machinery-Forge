@@ -1,0 +1,22 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" BS",
+		"BCB",
+		"SB "
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:slimeball"
+		},
+		"B": {
+			"item": "minecraft:slime_block"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_slime"
+	}
+}
