@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" NN",
+		"NGN",
+		"NN "
+	],
+	"key": {
+		"N": {
+			"item": "minecraft:iron_nugget"
+		},
+		"G": {
+			"item": "minecraft:gold_nugget"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:barrel_shotgun"
+	}
+}

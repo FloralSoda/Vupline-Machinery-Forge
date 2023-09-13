@@ -1,0 +1,25 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" PO",
+		"PCO",
+		"EO "
+	],
+	"key": {
+		"P": {
+			"item": "minecraft:blaze_powder"
+		},
+		"O": {
+			"item": "minecraft:crying_obsidian"
+		},
+		"C": {
+			"item": "vulpin_armory:core_standard"
+		},
+		"E": {
+			"item": "minecraft:ender_eye"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:core_cursed"
+	}
+}

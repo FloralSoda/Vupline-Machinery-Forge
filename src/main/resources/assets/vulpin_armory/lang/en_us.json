@@ -1,0 +1,44 @@
+{
+	"itemGroup.vulpin_armory.main": "Vulpin Armory",
+	
+	"block.vulpin_armory.gunsmithing_table": "Gunsmithing Table",
+	
+	"item.vulpin_armory.bullet": "Bullet",
+	"item.vulpin_armory.bullet_ender": "Ender Infused Bullet",
+	"item.vulpin_armory.bullet_prismarine": "Prismarine Infused Bullet",
+	"item.vulpin_armory.bullet_soul": "Soul Infused Bullet",
+	"item.vulpin_armory.barrel_muffle": "Muffled Barrel",
+	"item.vulpin_armory.barrel_revolve": "Revolving Barrel",
+	"item.vulpin_armory.barrel_shotgun": "Shotgun Barrel",
+	"item.vulpin_armory.barrel_slug": "Slug Barrel",
+	"item.vulpin_armory.bridge": "Gun Bridge",
+	"item.vulpin_armory.mechanized_bridge": "Mechanized Bridge",
+	"item.vulpin_armory.tweaked_bridge": "Tweaked Bridge",
+	"item.vulpin_armory.handle": "Gun Handle",
+	
+	"item.vulpin_armory.core_assassin": "Assassin's Gun Core",
+	"item.vulpin_armory.core_bean": "Bean",
+	"item.vulpin_armory.core_cursed": "Cursed Gun Core",
+	"item.vulpin_armory.core_ender": "Ender Infused Gun Core",
+	"item.vulpin_armory.core_flame": "Flaming Gun Core",
+	"item.vulpin_armory.core_health": "Healing Gun Core",
+	"item.vulpin_armory.core_ice": "Frosting Gun Core",
+	"item.vulpin_armory.core_prismarine": "Prismarine Infused Gun Core",
+	"item.vulpin_armory.core_shield": "Shielding Gun Core",
+	"item.vulpin_armory.core_slime": "Slimey Gun Core",
+	"item.vulpin_armory.core_standard": "Gun Core",
+	"item.vulpin_armory.core_wither": "Withering Gun Core",
+	
+	"item.vulpin_armory.pepperbox_revolve": "Revolver Pepperbox",
+	"item.vulpin_armory.pepperbox_shotgun": "Shotgun Pepperbox",
+	"item.vulpin_armory.pepperbox_slug": "Hand Cannon",
+	"item.vulpin_armory.pepperbox_muffled": "Muffled Pepperbox",
+	
+	"item.vulpin_armory.blueprint": "Blueprint: %s",
+	"item.vulpin_armory.beans": "Beans",
+	
+	"sounds.vulpin_armory.gunshot": "Gunshot",
+	"sounds.vulpin_armory.heavy_gunshot": "Heavy Gunshot",
+	"sounds.vulpin_armory.hand_cannon_gunshot": "Thumping Gunshot",
+	"sounds.vulpin_armory.muffled_gunshot": "Click"
+}

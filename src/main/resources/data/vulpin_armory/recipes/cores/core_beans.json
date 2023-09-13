@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" B ",
+		"BCB",
+		" B "
+	],
+	"key": {
+		"B": {
+			"item": "vulpin_armory:beans"
+		},
+		"C": {
+			"item": "vulpin_armory:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:core_bean"
+	}
+}

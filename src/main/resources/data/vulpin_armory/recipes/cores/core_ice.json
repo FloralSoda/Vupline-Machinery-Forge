@@ -1,0 +1,22 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" IS",
+		"ISI",
+		"SI "
+	],
+	"key": {
+		"I": {
+			"item": "minecraft:packed_ice"
+		},
+		"S": {
+			"item": "minecraft:powdered_snow_bucket"
+		},
+		"C": {
+			"item": "vulpin_armory:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:core_ice"
+	}
+}

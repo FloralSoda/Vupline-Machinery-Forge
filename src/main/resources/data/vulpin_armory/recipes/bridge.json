@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" WG",
+		"GW ",
+		" W "
+	],
+	"key": {
+		"W": {
+			"tag": "minecraft:planks"
+		},
+		"G": {
+			"item": "minecraft:gold_nugget"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:bridge"
+	}
+}

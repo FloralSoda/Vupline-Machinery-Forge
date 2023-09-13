@@ -1,0 +1,19 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" IG",
+		"IGI",
+		"GI "
+	],
+	"key": {
+		"I": {
+			"tag": "forge:ingots/iron"
+		},
+		"G": {
+			"item": "minecraft:gunpowder"
+		}
+	},
+	"result": {
+		"item": "vulpin_armory:core_standard"
+	}
+}
