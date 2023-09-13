@@ -34,7 +34,7 @@
 		"sounds": [
 			"vulpine_machinery:hand_cannon_far"
 		]
-	}
+	},
 	"muffled_gunshot": {
 		"subtitle": "sounds.vulpine_machinery.muffled_gunshot",
 		"sounds": [
