@@ -13,10 +13,10 @@
 			"item": "minecraft:chorus_fruit"
 		},
 		"C": {
-			"item": "vulpine_machinery:core_standard
+			"item": "vulpine_machinery:core_standard"
 		}
 	},
 	"result": {
-		"item": "vulpine_machinery:core_blink"
+		"item": "vulpine_machinery:core_ender"
 	}
 }

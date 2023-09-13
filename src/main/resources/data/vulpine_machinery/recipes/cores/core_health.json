@@ -9,9 +9,6 @@
 		"I": {
 			"tag": "forge:ingots/iron"
 		},
-		"G": {
-			"item": "minecraft:gunpower"
-		},
 		"L": {
 			"item": "minecraft:golden_apple"
 		},

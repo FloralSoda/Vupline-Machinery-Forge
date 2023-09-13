@@ -10,7 +10,7 @@
 			"item": "minecraft:prismarine_shard"
 		},
 		"P": {
-			"item": "minecraft:prismarine_crystal"
+			"item": "minecraft:prismarine_crystals"
 		},
 		"R": {
 			"item": "minecraft:blaze_rod"
@@ -20,6 +20,6 @@
 		}
 	},
 	"result": {
-		"item": "vulpine_machinery:core_guardian"
+		"item": "vulpine_machinery:core_prismarine"
 	}
 }
