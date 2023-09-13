@@ -1,52 +1,12 @@
 {
-	"credit": "Made with Blockbench",
-	"texture_size": [48, 32],
+	"parent": "minecraft:block/cube",
 	"textures": {
-		"1": "vulpine_machinery:block/gunsmithing_table"
-	},
-	"elements": [
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"faces": {
-				"north": {"uv": [10.66667, 0, 16, 8], "texture": "#1"},
-				"east": {"uv": [5.33333, 8, 10.66667, 16], "texture": "#1"},
-				"south": {"uv": [10.66667, 8, 16, 16], "texture": "#1"},
-				"west": {"uv": [5.33333, 0, 10.66667, 8], "texture": "#1"},
-				"up": {"uv": [0, 0, 5.33333, 8], "texture": "#1"},
-				"down": {"uv": [0, 8, 5.33333, 16], "texture": "#1"}
-			}
-		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, 45, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_lefthand": {
-			"rotation": [0, 225, 0],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"translation": [0, 3, 0],
-			"scale": [0.25, 0.25, 0.25]
-		},
-		"gui": {
-			"rotation": [30, 45, 0],
-			"scale": [0.625, 0.625, 0.625]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
+		"particle": "vulpine_machinery:block/gunsmithing_table_top",
+		"north": "vulpine_machinery:block/gunsmithing_table_side",
+		"south": "vulpine_machinery:block/gunsmithing_table_side",
+		"east": "vulpine_machinery:block/gunsmithing_table_side_tools",
+		"west": "vulpine_machinery:block/gunsmithing_table_side_tools",
+		"up": "vulpine_machinery:block/gunsmithing_table_top",
+		"down": "vulpine_machinery:block/gunsmithing_table_bottom"
 	}
 }
