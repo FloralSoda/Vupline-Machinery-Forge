@@ -3,7 +3,7 @@
 	
 	"block.vulpine_machinery.gunsmithing_table": "Gunsmithing Table",
 	
-	"item.vulpine_machinery.bullet": "Bullet",
+	"item.vulpine_machinery.bullet": "Standard Bullet",
 	"item.vulpine_machinery.bullet_ender": "Ender Infused Bullet",
 	"item.vulpine_machinery.bullet_prismarine": "Prismarine Infused Bullet",
 	"item.vulpine_machinery.bullet_soul": "Soul Infused Bullet",
@@ -18,21 +18,24 @@
 	
 	"item.vulpine_machinery.core_assassin": "Assassin's Gun Core",
 	"item.vulpine_machinery.core_bean": "Bean",
-	"item.vulpine_machinery.core_cursed": "Cursed Gun Core",
+	"item.vulpine_machinery.core_cursed": "Cursed Gun Core (NYI)",
 	"item.vulpine_machinery.core_ender": "Ender Infused Gun Core",
 	"item.vulpine_machinery.core_flame": "Flaming Gun Core",
 	"item.vulpine_machinery.core_health": "Healing Gun Core",
 	"item.vulpine_machinery.core_ice": "Frosting Gun Core",
 	"item.vulpine_machinery.core_prismarine": "Prismarine Infused Gun Core",
 	"item.vulpine_machinery.core_shield": "Shielding Gun Core",
-	"item.vulpine_machinery.core_slime": "Slimey Gun Core",
-	"item.vulpine_machinery.core_standard": "Gun Core",
+	"item.vulpine_machinery.core_slime": "Slimy Gun Core",
+	"item.vulpine_machinery.core_standard": "Standard Gun Core",
 	"item.vulpine_machinery.core_wither": "Withering Gun Core",
 	
-	"item.vulpine_machinery.pepperbox_revolve": "Revolver Pepperbox",
-	"item.vulpine_machinery.pepperbox_shotgun": "Shotgun Pepperbox",
-	"item.vulpine_machinery.pepperbox_slug": "Hand Cannon",
-	"item.vulpine_machinery.pepperbox_muffled": "Muffled Pepperbox",
+	"item.vulpine_machinery.pepperbox": "%s Pepperbox",
+
+	"tooltip.vulpine_machinery.barrel": "§6Barrel: §7%s§r",
+	"tooltip.vulpine_machinery.core": "§6Core: §7%s§r",
+	"tooltip.vulpine_machinery.bridge": "§6Bridge: §7%s§r",
+	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
+	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
 	
 	"item.vulpine_machinery.blueprint": "Blueprint: %s",
 	"item.vulpine_machinery.beans": "Beans",

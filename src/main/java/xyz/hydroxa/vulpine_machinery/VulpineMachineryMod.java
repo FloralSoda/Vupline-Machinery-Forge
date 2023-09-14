@@ -10,6 +10,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import xyz.hydroxa.vulpine_machinery.audio.ModSoundEvents;
 import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 
@@ -25,6 +26,8 @@ public class VulpineMachineryMod
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModSoundEvents.register(modEventBus);
+
         modEventBus.addListener(this::commonSetup);
 
         MinecraftForge.EVENT_BUS.register(this);
