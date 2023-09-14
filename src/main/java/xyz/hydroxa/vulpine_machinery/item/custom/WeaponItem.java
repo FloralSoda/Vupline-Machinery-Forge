@@ -1,22 +1,26 @@
 package xyz.hydroxa.vulpine_machinery.item.custom;
 
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.audio.SoundProvider;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
-import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.BarrelItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.BridgeItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.HandleItem;
+import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 
 import java.util.List;
 
@@ -73,7 +77,13 @@ public class WeaponItem extends Item implements Vanishable {
             return null;
     }
 
-
+    public int consumeBullets(ItemStack item, int amount) {
+        int remaining = getRemainingBullets(item);
+        if (amount > remaining)
+            amount = remaining;
+        item.getOrCreateTag().putInt("Bullets", remaining - amount);
+        return remaining - amount;
+    }
     public int getRemainingBullets(ItemStack item) {
         return item.getOrCreateTag().getInt("Bullets");
     }
@@ -121,9 +131,45 @@ public class WeaponItem extends Item implements Vanishable {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
 
-        return InteractionResultHolder.pass(itemstack);
+        if (getRemainingBullets(itemstack) > -1) {
+            BarrelItem barrel = getBarrel(itemstack);
+            shootProjectile(pLevel, pPlayer, itemstack, barrel);
+            consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
+        } else {
+            pPlayer.startUsingItem(pUsedHand);
+        }
+        return InteractionResultHolder.consume(itemstack);
     }
 
+
+    private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel) {
+        if (!level.isClientSide) {
+            Projectile projectile;
+            ArrowItem arrowitem = (ArrowItem) Items.ARROW;
+            AbstractArrow abstractarrow = arrowitem.createArrow(level, new ItemStack(Items.ARROW), user);
+            if (user instanceof Player) {
+                abstractarrow.setCritArrow(true);
+            }
+
+            abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
+            if (barrel.Properties.BulletType == BulletType.HandCannon) {
+                abstractarrow.setPierceLevel((byte) 5);
+            }
+            projectile = abstractarrow;
+
+
+            var fireAngle = barrel.getFireAngle(level, user, item);
+            Vec3 vec31 = user.getUpVector(1.0F);
+            Quaternion quaternion = new Quaternion(new Vector3f(vec31), fireAngle, true);
+            Vec3 vec3 = user.getViewVector(1.0F);
+            Vector3f vector3f = new Vector3f(vec3);
+            vector3f.transform(quaternion);
+            projectile.shoot(vector3f.x(), vector3f.y(), vector3f.z(), barrel.Properties.BulletSpeed, barrel.Properties.Variance);
+
+            level.addFreshEntity(projectile);
+            level.playSound(null, user.getX(), user.getY(), user.getZ(), SoundProvider.GetGunshotNearAudio(user, level, item), SoundSource.PLAYERS, 1.0F, 1.0f);
+        }
+    }
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {

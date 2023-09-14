@@ -14,10 +14,9 @@ public class BarrelItem extends Item {
         this.Properties = bProperties;
     }
 
-    public Pair<Float, Float> getFireAngle(Level level, LivingEntity user, ItemStack stack) {
+    public float getFireAngle(Level level, LivingEntity user, ItemStack stack) {
         float randomX = level.random.nextFloat() * Properties.Variance;
-        float randomY = level.random.nextFloat() * Properties.Variance;
 
-        return new Pair<>(randomX, randomY);
+        return randomX;
     }
 }

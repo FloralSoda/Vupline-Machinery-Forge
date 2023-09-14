@@ -47,9 +47,9 @@ public class ModItems {
     public static final RegistryObject<Item> BARREL_MUFFLE = ITEMS.register("barrel_muffle",
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Muffled").bulletType(BulletType.Muffled).variance(0.5f).ticksPerBulletReloaded(6).ticksPerShot(25)));
     public static final RegistryObject<Item> BARREL_SHOTGUN = ITEMS.register("barrel_shotgun",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Shotgun").bulletType(BulletType.Heavy).variance(6).damageMultiplier(1f/6f).ticksPerBulletReloaded(3).capacity(6).bulletsPerShot(6).ticksPerShot(5)));
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Shotgun").bulletType(BulletType.Heavy).variance(6).damageMultiplier(1f/6f).ticksPerBulletReloaded(3).capacity(6).bulletsPerShot(6).ticksPerShot(5).bulletSpeed(3.14f)));
     public static final RegistryObject<Item> BARREL_REVOLVE = ITEMS.register("barrel_revolve",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Revolving").bulletType(BulletType.Pistol).capacity(6)));
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Revolving").bulletType(BulletType.Pistol).capacity(6).variance(1f)));
 
     public static final RegistryObject<Item> CORE_ASSASSIN = ITEMS.register("core_assassin",
             () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));

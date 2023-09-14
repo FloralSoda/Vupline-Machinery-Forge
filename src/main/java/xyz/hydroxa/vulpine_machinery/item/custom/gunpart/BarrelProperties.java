@@ -9,6 +9,7 @@ public class BarrelProperties {
     public float Variance;
     public String BarrelName;
     public float DamageMultiplier;
+    public float BulletSpeed;
 
     public BarrelProperties(String barrelName) {
         Capacity = 1;
@@ -19,6 +20,7 @@ public class BarrelProperties {
         Variance = 0;
         BarrelName = barrelName;
         DamageMultiplier = 1;
+        BulletSpeed = 3.15F;
     }
 
     public BarrelProperties capacity(int capacity) {
@@ -47,6 +49,10 @@ public class BarrelProperties {
     }
     public BarrelProperties damageMultiplier(float multiplier) {
         this.DamageMultiplier = multiplier;
+        return this;
+    }
+    public BarrelProperties bulletSpeed(float speed) {
+        this.BulletSpeed = speed;
         return this;
     }
 }
