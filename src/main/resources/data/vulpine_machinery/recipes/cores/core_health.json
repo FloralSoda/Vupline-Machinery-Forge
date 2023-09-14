@@ -14,6 +14,9 @@
 		},
 		"C": {
 			"item": "vulpine_machinery:core_standard"
+		},
+		"T": {
+			"item": "minecraft:ghast_tear"
 		}
 	},
 	"result": {
