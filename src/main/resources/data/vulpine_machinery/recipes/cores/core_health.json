@@ -6,8 +6,8 @@
 		"LM "
 	],
 	"key": {
-		"I": {
-			"tag": "forge:ingots/iron"
+		"M": {
+			"item": "minecraft:melon"
 		},
 		"L": {
 			"item": "minecraft:golden_apple"
