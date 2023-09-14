@@ -1,6 +1,7 @@
 package xyz.hydroxa.vulpine_machinery;
 
 import com.mojang.logging.LogUtils;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -12,13 +13,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 import xyz.hydroxa.vulpine_machinery.audio.ModSoundEvents;
 import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
+import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
+import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletRenderer;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 
 @Mod(VulpineMachineryMod.MOD_ID)
 public class VulpineMachineryMod
 {
     public static final String MOD_ID = "vulpine_machinery";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public VulpineMachineryMod()
     {
@@ -27,6 +30,7 @@ public class VulpineMachineryMod
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
         ModSoundEvents.register(modEventBus);
+        ModEntities.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
@@ -45,7 +49,10 @@ public class VulpineMachineryMod
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-
+            EntityRenderers.register(ModEntities.BULLET_PISTOL.get(), BulletRenderer::new_pistol);
+            EntityRenderers.register(ModEntities.BULLET_MUFFLED.get(), BulletRenderer::new_muffled);
+            EntityRenderers.register(ModEntities.BULLET_HEAVY.get(), BulletRenderer::new_heavy);
+            EntityRenderers.register(ModEntities.BULLET_HAND_CANNON.get(), BulletRenderer::new_hand_cannon);
         }
     }
 }

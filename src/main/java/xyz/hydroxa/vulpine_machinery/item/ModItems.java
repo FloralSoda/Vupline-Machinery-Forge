@@ -10,6 +10,7 @@ import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.audio.PistolSoundProvider;
 import xyz.hydroxa.vulpine_machinery.item.custom.WeaponItem;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
+import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.cores.StandardCoreItem;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
@@ -52,29 +53,29 @@ public class ModItems {
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Revolving").bulletType(BulletType.Pistol).capacity(6).variance(1f)));
 
     public static final RegistryObject<Item> CORE_ASSASSIN = ITEMS.register("core_assassin",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_BEAN = ITEMS.register("core_bean",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_CURSED = ITEMS.register("core_cursed",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_ENDER = ITEMS.register("core_ender",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_ENDER.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_ENDER.get())));
     public static final RegistryObject<Item> CORE_FLAME = ITEMS.register("core_flame",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_HEALTH = ITEMS.register("core_health",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_ICE = ITEMS.register("core_ice",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_PRISMARINE = ITEMS.register("core_prismarine",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_PRISMARINE.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_PRISMARINE.get())));
     public static final RegistryObject<Item> CORE_SHIELD = ITEMS.register("core_shield",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_SLIME = ITEMS.register("core_slime",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_PRISMARINE.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_PRISMARINE.get())));
     public static final RegistryObject<Item> CORE_STANDARD = ITEMS.register("core_standard",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_WITHER = ITEMS.register("core_wither",
-            () -> new CoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
+            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties().bulletItem(BULLET_SOUL.get())));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

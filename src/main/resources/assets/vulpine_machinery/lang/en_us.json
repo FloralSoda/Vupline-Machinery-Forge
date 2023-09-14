@@ -45,5 +45,10 @@
 	"sounds.vulpine_machinery.hand_cannon_gunshot": "Thumping Gunshot",
 	"sounds.vulpine_machinery.muffled_gunshot": "Click",
 
-	"itemGroup.vulpine_machinery_tab": "Vulpine Machinery"
+	"itemGroup.vulpine_machinery_tab": "Vulpine Machinery",
+
+	"entity.vulpine_machinery.bullet_pistol": "Pistol Bullet",
+	"entity.vulpine_machinery.bullet_heavy": "Heavy Bullet",
+	"entity.vulpine_machinery.bullet_muffled": "Pistol Bullet",
+	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet"
 }

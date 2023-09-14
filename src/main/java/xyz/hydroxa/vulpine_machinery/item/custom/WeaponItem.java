@@ -5,26 +5,25 @@ import com.mojang.math.Vector3f;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.audio.SoundProvider;
+import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 
 import java.util.List;
 
 public class WeaponItem extends Item implements Vanishable {
+    public static final float BASE_DAMAGE = 15f;
     public SoundProvider SoundProvider;
     public WeaponItem(Properties pProperties, SoundProvider soundProvider) {
         super(pProperties);
@@ -32,7 +31,7 @@ public class WeaponItem extends Item implements Vanishable {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {
+    public void fillItemCategory(@NotNull CreativeModeTab pCategory, @NotNull NonNullList<ItemStack> pItems) {
         if (allowedIn(pCategory)) {
             pItems.add(getDefaultInstance());
         } else {
@@ -128,12 +127,12 @@ public class WeaponItem extends Item implements Vanishable {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
 
         if (getRemainingBullets(itemstack) > -1) {
             BarrelItem barrel = getBarrel(itemstack);
-            shootProjectile(pLevel, pPlayer, itemstack, barrel);
+            shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack));
             consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
         } else {
             pPlayer.startUsingItem(pUsedHand);
@@ -142,22 +141,17 @@ public class WeaponItem extends Item implements Vanishable {
     }
 
 
-    private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel) {
+    private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel, CoreItem core) {
         if (!level.isClientSide) {
-            Projectile projectile;
-            ArrowItem arrowitem = (ArrowItem) Items.ARROW;
-            AbstractArrow abstractarrow = arrowitem.createArrow(level, new ItemStack(Items.ARROW), user);
-            if (user instanceof Player) {
-                abstractarrow.setCritArrow(true);
-            }
+            BulletProjectile projectile = new BulletProjectile(level, user, barrel.Properties.BulletType);
+            projectile.setCore(new ItemStack(core));
+            projectile.setDamage(BASE_DAMAGE * barrel.Properties.DamageMultiplier);
 
-            abstractarrow.setSoundEvent(SoundEvents.CROSSBOW_HIT);
             if (barrel.Properties.BulletType == BulletType.HandCannon) {
-                abstractarrow.setPierceLevel((byte) 5);
+                projectile.setPierceLevel((byte) 5);
             }
-            projectile = abstractarrow;
 
-
+            //TODO: Figure out why this is just spawning the bullets high into the sky
             var fireAngle = barrel.getFireAngle(level, user, item);
             Vec3 vec31 = user.getUpVector(1.0F);
             Quaternion quaternion = new Quaternion(new Vector3f(vec31), fireAngle, true);
@@ -172,7 +166,7 @@ public class WeaponItem extends Item implements Vanishable {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
 
         if (pStack.getItem() instanceof WeaponItem) {
@@ -193,7 +187,7 @@ public class WeaponItem extends Item implements Vanishable {
     }
 
     @Override
-    public Component getName(ItemStack pStack) {
+    public @NotNull Component getName(ItemStack pStack) {
         if (pStack.getItem() instanceof WeaponItem) {
             CompoundTag tags = pStack.getOrCreateTag();
             CompoundTag parts = tags.getCompound("Parts");
