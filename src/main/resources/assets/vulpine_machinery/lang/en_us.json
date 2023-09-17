@@ -28,7 +28,11 @@
 	"item.vulpine_machinery.core_slime": "Slimy Gun Core",
 	"item.vulpine_machinery.core_standard": "Standard Gun Core",
 	"item.vulpine_machinery.core_wither": "Withering Gun Core",
-	
+	"item.vulpine_machinery.core_sanguine": "Sanguine Gun Core",
+
+	"key.category.vulpine_machinery.vulpine_machinery": "Vulpine Machinery",
+	"key.vulpine_machinery.reload": "Reload Weapon",
+
 	"item.vulpine_machinery.pepperbox": "%s Pepperbox",
 
 	"tooltip.vulpine_machinery.barrel": "§6Barrel: §7%s§r",
@@ -42,13 +46,15 @@
 	
 	"sounds.vulpine_machinery.gunshot": "Gunshot",
 	"sounds.vulpine_machinery.heavy_gunshot": "Heavy Gunshot",
-	"sounds.vulpine_machinery.hand_cannon_gunshot": "Thumping Gunshot",
-	"sounds.vulpine_machinery.muffled_gunshot": "Click",
+	"sounds.vulpine_machinery.hand_cannon": "Thumping Gunshot",
+	"sounds.vulpine_machinery.muffled_gunshot": "Muffled Shot",
 
 	"itemGroup.vulpine_machinery_tab": "Vulpine Machinery",
 
 	"entity.vulpine_machinery.bullet_pistol": "Pistol Bullet",
 	"entity.vulpine_machinery.bullet_heavy": "Heavy Bullet",
 	"entity.vulpine_machinery.bullet_muffled": "Pistol Bullet",
-	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet"
+	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet",
+
+	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer."
 }

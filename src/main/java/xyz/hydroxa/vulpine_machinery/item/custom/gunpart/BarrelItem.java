@@ -4,19 +4,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import oshi.util.tuples.Pair;
 
 public class BarrelItem extends Item {
     public BarrelProperties Properties;
+    public int ID;
 
-    public BarrelItem(Properties pProperties, BarrelProperties bProperties) {
+    public BarrelItem(Properties pProperties, int id, BarrelProperties bProperties) {
         super(pProperties);
         this.Properties = bProperties;
+        this.ID = id;
     }
 
     public float getFireAngle(Level level, LivingEntity user, ItemStack stack) {
-        float randomX = level.random.nextFloat() * Properties.Variance;
 
-        return randomX;
+        return level.random.nextFloat() * Properties.Variance;
     }
 }

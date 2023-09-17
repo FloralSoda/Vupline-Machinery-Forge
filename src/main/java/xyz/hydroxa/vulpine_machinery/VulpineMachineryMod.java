@@ -16,6 +16,7 @@ import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
 import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletRenderer;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
+import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 
 @Mod(VulpineMachineryMod.MOD_ID)
 public class VulpineMachineryMod
@@ -39,7 +40,9 @@ public class VulpineMachineryMod
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-
+        event.enqueueWork(() -> {
+            ModMessages.register();
+                });
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

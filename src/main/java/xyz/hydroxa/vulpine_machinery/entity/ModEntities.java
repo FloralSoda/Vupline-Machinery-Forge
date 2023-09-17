@@ -15,14 +15,14 @@ public class ModEntities {
             DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, VulpineMachineryMod.MOD_ID);
     public static final RegistryObject<EntityType<BulletProjectile>> BULLET_PISTOL = ENTITY_TYPES.register("bullet_pistol",
             () -> EntityType.Builder.<BulletProjectile>of(BulletProjectile::new, MobCategory.MISC)
-            .sized(0.25F, 0.25F)
+            .sized(0.15F, 0.15F)
             .clientTrackingRange(4)
             .setShouldReceiveVelocityUpdates(true)
             .setUpdateInterval(1)
             .build(new ResourceLocation(VulpineMachineryMod.MOD_ID, "bullet_pistol").toString()));
     public static final RegistryObject<EntityType<BulletProjectile>> BULLET_MUFFLED = ENTITY_TYPES.register("bullet_muffled",
             () -> EntityType.Builder.<BulletProjectile>of(BulletProjectile::new, MobCategory.MISC)
-                    .sized(0.25F, 0.25F)
+                    .sized(0.15F, 0.15F)
                     .clientTrackingRange(4)
                     .setShouldReceiveVelocityUpdates(true)
                     .setUpdateInterval(1)

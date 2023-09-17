@@ -1,0 +1,6 @@
+{
+  "parent" : "item/generated",
+  "textures": {
+    "layer0": "vulpine_machinery:item/z_bullet_render_helper_large"
+  }
+}

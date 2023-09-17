@@ -20,7 +20,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.BulletType;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreItem;
@@ -80,14 +79,21 @@ public class BulletProjectile extends Projectile {
         return entityData.get(PIERCE_LEVEL);
     }
 
+    @Override
+    public void shoot(double pX, double pY, double pZ, float pVelocity, float pInaccuracy) {
+        super.shoot(pX, pY, pZ, pVelocity, pInaccuracy);
+        var core = getCore();
+        if (core != null) {
+            core.onCreation(this, getOwner());
+        }
+    }
+
     protected void onHitEntity(@NotNull EntityHitResult pResult) {
         super.onHitEntity(pResult);
         var core = getCore();
         if (core != null) {
             core.onEntityHit(this, getOwner(), pResult, getDamage());
         }
-        else
-            VulpineMachineryMod.LOGGER.warn("Bullet collided with no bound core");
     }
 
     protected void onHit(@NotNull HitResult pResult) {
@@ -157,8 +163,6 @@ public class BulletProjectile extends Projectile {
         var core = getCore();
         if (core != null) {
             getCore().onTick(this, getOwner());
-        } else {
-            VulpineMachineryMod.LOGGER.warn("Bullet has no core bound!");
         }
     }
 

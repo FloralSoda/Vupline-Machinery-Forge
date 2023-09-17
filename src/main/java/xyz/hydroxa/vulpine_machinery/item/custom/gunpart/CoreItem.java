@@ -28,6 +28,6 @@ public abstract class CoreItem extends Item {
     }
 
     public void onTick(Projectile entity, Entity owner) {}
-
-    public abstract void onEntityHit(Projectile entity, Entity owner, EntityHitResult hitResult, float baseDamage);
+    public void onCreation(Projectile entity, Entity owner) {}
+    public void onEntityHit(Projectile entity, Entity owner, EntityHitResult hitResult, float baseDamage) {}
 }

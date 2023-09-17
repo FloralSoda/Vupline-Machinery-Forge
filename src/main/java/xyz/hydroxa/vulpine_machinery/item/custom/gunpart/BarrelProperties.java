@@ -1,5 +1,7 @@
 package xyz.hydroxa.vulpine_machinery.item.custom.gunpart;
 
+import xyz.hydroxa.vulpine_machinery.audio.SoundProvider;
+
 public class BarrelProperties {
     public int Capacity;
     public int BulletsPerShot;
@@ -9,18 +11,22 @@ public class BarrelProperties {
     public float Variance;
     public String BarrelName;
     public float DamageMultiplier;
-    public float BulletSpeed;
+    public float BulletSpeedMultiplier;
+    public SoundProvider SoundProvider;
+    public float RecoilMultiplier;
 
-    public BarrelProperties(String barrelName) {
+    public BarrelProperties(String barrelName, SoundProvider soundProvider) {
         Capacity = 1;
         BulletsPerShot = 1;
         TicksPerShot = 10;
-        TicksPerBulletReloaded = 2;
+        TicksPerBulletReloaded = 20;
         this.BulletType = xyz.hydroxa.vulpine_machinery.item.custom.gunpart.BulletType.Pistol;
         Variance = 0;
         BarrelName = barrelName;
         DamageMultiplier = 1;
-        BulletSpeed = 3.15F;
+        BulletSpeedMultiplier = 1F;
+        SoundProvider = soundProvider;
+        RecoilMultiplier = 1f;
     }
 
     public BarrelProperties capacity(int capacity) {
@@ -51,8 +57,12 @@ public class BarrelProperties {
         this.DamageMultiplier = multiplier;
         return this;
     }
-    public BarrelProperties bulletSpeed(float speed) {
-        this.BulletSpeed = speed;
+    public BarrelProperties bulletSpeedMultiplier(float speed) {
+        this.BulletSpeedMultiplier = speed;
+        return this;
+    }
+    public BarrelProperties recoilMultiplier(float recoil) {
+        this.RecoilMultiplier = recoil;
         return this;
     }
 }
