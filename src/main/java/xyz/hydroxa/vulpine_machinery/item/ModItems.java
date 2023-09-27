@@ -51,7 +51,7 @@ public class ModItems {
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 0, new BarrelProperties("Revolving", new PistolSoundProvider())
                     .bulletType(BulletType.Pistol)
                     .capacity(6)
-                    .variance(2f)
+                    .variance(1f)
                     .ticksPerBulletReloaded(10)));
     public static final RegistryObject<Item> BARREL_SHOTGUN = ITEMS.register("barrel_shotgun",
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Shotgun", new HeavySoundProvider())
@@ -67,7 +67,7 @@ public class ModItems {
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 2, new BarrelProperties("Slug", new HandCannonSoundProvider())
                     .damageMultiplier(2f)
                     .bulletType(BulletType.HandCannon)
-                    .variance(4)
+                    .variance(2)
                     .ticksPerBulletReloaded(20)
                     .ticksPerShot(15)
                     .bulletSpeedMultiplier(0.5f)

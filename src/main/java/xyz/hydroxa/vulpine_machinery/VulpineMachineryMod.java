@@ -30,8 +30,8 @@ public class VulpineMachineryMod
 
         ModItems.register(modEventBus);
         ModBlocks.register(modEventBus);
-        ModSoundEvents.register(modEventBus);
         ModEntities.register(modEventBus);
+        ModSoundEvents.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

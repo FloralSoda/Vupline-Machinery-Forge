@@ -1,5 +1,5 @@
 {
-	"gunshot": {
+	"gunshot_near": {
 		"subtitle": "sounds.vulpine_machinery.gunshot",
 		"sounds": [
 			"vulpine_machinery:gunshot_near"
@@ -11,7 +11,7 @@
 			"vulpine_machinery:gunshot_far"
 		]
 	},
-	"heavy_gunshot": {
+	"heavy_gunshot_near": {
 		"subtitle": "sounds.vulpine_machinery.heavy_gunshot",
 		"sounds": [
 			"vulpine_machinery:heavy_gunshot_near"
@@ -23,7 +23,7 @@
 			"vulpine_machinery:heavy_gunshot_far"
 		]
 	},
-	"hand_cannon": {
+	"hand_cannon_near": {
 		"subtitle": "sounds.vulpine_machinery.hand_cannon",
 		"sounds": [
 			"vulpine_machinery:hand_cannon_near"

@@ -4,7 +4,6 @@ import com.mojang.math.Vector3f;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,7 +17,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
+import xyz.hydroxa.vulpine_machinery.audio.ModSoundEvents;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 
@@ -256,10 +255,7 @@ public class WeaponItem extends Item implements Vanishable {
             }
 
             level.addFreshEntity(projectile);
-            VulpineMachineryMod.LOGGER.info(user.blockPosition().toShortString());
-            //TODO: Work out why this isn't producing sound
-            level.playSound(null, user.blockPosition(), SoundEvents.SLIME_ATTACK, SoundSource.PLAYERS, 1.0F, 1.0f);
-            //level.playSound(null, user.blockPosition().above(), barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), SoundSource.PLAYERS, 1.0F, 1.0f);
+            level.playSound(null, user.blockPosition(), ModSoundEvents.GUNSHOT_NEAR.get(), SoundSource.PLAYERS, 1.0F, 1.0f);
         } else {
             user.playSound(barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), 1.0F, 1.0f);
         }
