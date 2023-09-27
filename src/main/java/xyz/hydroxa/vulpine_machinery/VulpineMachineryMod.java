@@ -17,6 +17,7 @@ import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletRenderer;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
+import xyz.hydroxa.vulpine_machinery.world.inventory.ModMenus;
 
 @Mod(VulpineMachineryMod.MOD_ID)
 public class VulpineMachineryMod
@@ -32,6 +33,7 @@ public class VulpineMachineryMod
         ModBlocks.register(modEventBus);
         ModEntities.register(modEventBus);
         ModSoundEvents.register(modEventBus);
+        ModMenus.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

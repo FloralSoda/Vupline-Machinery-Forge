@@ -2,6 +2,7 @@
 	"itemGroup.vulpine_machinery.main": "Vulpin Armory",
 	
 	"block.vulpine_machinery.gunsmithing_table": "Gunsmithing Table",
+	"container.vulpine_machinery.upgrade": "Build your weapon",
 	
 	"item.vulpine_machinery.bullet": "Standard Bullet",
 	"item.vulpine_machinery.bullet_ender": "Ender Infused Bullet",
@@ -41,7 +42,7 @@
 	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
 	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
 	
-	"item.vulpine_machinery.blueprint": "Blueprint: %s",
+	"item.vulpine_machinery.blueprint": "Blueprint:%s",
 	"item.vulpine_machinery.beans": "Beans",
 	
 	"sounds.vulpine_machinery.gunshot": "Gunshot",

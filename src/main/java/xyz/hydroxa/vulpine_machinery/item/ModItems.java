@@ -11,6 +11,7 @@ import xyz.hydroxa.vulpine_machinery.audio.HandCannonSoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.HeavySoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.MuffledSoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.PistolSoundProvider;
+import xyz.hydroxa.vulpine_machinery.item.custom.BlueprintItem;
 import xyz.hydroxa.vulpine_machinery.item.custom.RenderHelperItem;
 import xyz.hydroxa.vulpine_machinery.item.custom.WeaponItem;
 import xyz.hydroxa.vulpine_machinery.item.custom.WeaponProperties;
@@ -29,9 +30,6 @@ public class ModItems {
             () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
     public static final RegistryObject<Item> BULLET_SOUL = ITEMS.register("bullet_soul",
             () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
-
-    public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",
-            () -> new Item(new Item.Properties().stacksTo(4).tab(ModCreativeModeTab.MACHINERY_TAB)));
 
     public static final RegistryObject<Item> BEANS = ITEMS.register("beans",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().fast().nutrition(1).saturationMod(0).build()).tab(ModCreativeModeTab.MACHINERY_TAB)));
@@ -125,6 +123,9 @@ public class ModItems {
             () -> new WeaponItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.MACHINERY_TAB), new WeaponProperties(BARREL_REVOLVE.get(), CORE_STANDARD.get(), BRIDGE.get(), HANDLE.get())
                     .carrySpeedMultiplier(0, -0.3f)));
 
+
+    public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",
+            () -> new BlueprintItem(new Item.Properties().stacksTo(4).tab(ModCreativeModeTab.MACHINERY_TAB)));
     public static final RegistryObject<Item> BULLET_PROJECTILE_SMALL = ITEMS.register("z_bullet_render_helper_small",
             () -> new RenderHelperItem(new Item.Properties().stacksTo(1000000)));
     public static final RegistryObject<Item> BULLET_PROJECTILE_LARGE = ITEMS.register("z_bullet_render_helper_large",

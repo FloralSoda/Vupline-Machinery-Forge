@@ -13,6 +13,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
+import xyz.hydroxa.vulpine_machinery.block.custom.GunsmithingTableBlock;
 import xyz.hydroxa.vulpine_machinery.item.ModCreativeModeTab;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 
@@ -23,7 +24,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, VulpineMachineryMod.MOD_ID);
 
     public static final RegistryObject<Block> GUNSMITHING_TABLE = registerBlock("gunsmithing_table",
-            () -> new Block(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).color(MaterialColor.COLOR_BROWN).strength(2.0f, 3.0f)),
+            () -> new GunsmithingTableBlock(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).color(MaterialColor.COLOR_BROWN).strength(2.0f, 3.0f)),
             ModCreativeModeTab.MACHINERY_TAB);
 
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
