@@ -99,6 +99,10 @@ public class BulletProjectile extends Projectile {
     protected void onHit(@NotNull HitResult pResult) {
         super.onHit(pResult);
         if (!level.isClientSide) {
+            var core = getCore();
+            if (core != null) {
+                core.onBlockHit(this, getOwner(), pResult);
+            }
             if (pResult instanceof EntityHitResult && getPierceLevel() > 0) {
                 setPierceLevel((byte) (getPierceLevel() - 1));
             } else {

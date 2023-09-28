@@ -11,7 +11,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 import xyz.hydroxa.vulpine_machinery.item.custom.BlueprintItem;
@@ -175,8 +174,6 @@ public class GunsmithingMenu extends AbstractContainerMenu {
 
     public void recipeChanged(SimpleContainer pContainer) {
         ItemStack stack = pContainer.getItem(0);
-
-        VulpineMachineryMod.LOGGER.info("Recipe Change");
 
         resultSlots.clearContent();
         if (stack.getItem() instanceof BlueprintItem) {

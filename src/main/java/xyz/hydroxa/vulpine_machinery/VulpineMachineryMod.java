@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import xyz.hydroxa.vulpine_machinery.audio.ModSoundEvents;
 import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
 import xyz.hydroxa.vulpine_machinery.client.gui.GunsmithingTableScreen;
+import xyz.hydroxa.vulpine_machinery.effect.ModEffects;
 import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletRenderer;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
@@ -38,6 +39,7 @@ public class VulpineMachineryMod
         ModSoundEvents.register(modEventBus);
         ModMenus.register(modEventBus);
         ModRecipes.register(modEventBus);
+        ModEffects.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 

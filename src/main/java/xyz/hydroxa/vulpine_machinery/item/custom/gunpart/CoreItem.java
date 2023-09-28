@@ -8,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,4 +31,6 @@ public abstract class CoreItem extends Item {
     public void onTick(Projectile entity, Entity owner) {}
     public void onCreation(Projectile entity, Entity owner) {}
     public void onEntityHit(Projectile entity, Entity owner, EntityHitResult hitResult, float baseDamage) {}
+
+    public void onBlockHit(Projectile entity, Entity owner, HitResult hitResult) {}
 }

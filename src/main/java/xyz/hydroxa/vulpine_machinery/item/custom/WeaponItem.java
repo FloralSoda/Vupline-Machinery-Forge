@@ -169,14 +169,18 @@ public class WeaponItem extends Item implements Vanishable {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
             if (!pLevel.isClientSide) {
-                if (getRemainingBullets(itemstack) > 0 && pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack) && pLevel.getGameTime() - getFireCooldown(itemstack) >= getBarrel(itemstack).Properties.TicksPerShot) {
-                    if (Properties.Automatic) {
-                        setReloading(itemstack, false);
-                        pPlayer.startUsingItem(pUsedHand);
-                    } else {
-                        BarrelItem barrel = getBarrel(itemstack);
-                        shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
-                        consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
+                if (getRemainingBullets(itemstack) > 0 &&
+                        pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
+                    if (pLevel.getGameTime() - getFireCooldown(itemstack) >= getBarrel(itemstack).Properties.TicksPerShot) {
+                        if (Properties.Automatic) {
+                            setReloading(itemstack, false);
+                            pPlayer.startUsingItem(pUsedHand);
+                        } else {
+                            setReloading(itemstack, false);
+                            BarrelItem barrel = getBarrel(itemstack);
+                            shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
+                            consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
+                        }
                     }
                 } else if (canReload(pPlayer, itemstack)) {
                     setReloading(itemstack, true);
@@ -359,6 +363,8 @@ public class WeaponItem extends Item implements Vanishable {
         tag.putInt(TAG_BULLETS, 0);
         if (barrelItem.getItem() instanceof BarrelItem bi)
             tag.putInt(TAG_BARREL_VARIANT, bi.ID);
+
+        setReloading(weaponItem, false);
 
         return weaponItem;
     }
