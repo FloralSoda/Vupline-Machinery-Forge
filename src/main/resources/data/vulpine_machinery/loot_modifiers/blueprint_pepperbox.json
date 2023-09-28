@@ -1,0 +1,13 @@
+{
+  "type": "vulpine_machinery:blueprint",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "chests/stronghold_library"
+    }
+  ],
+
+  "item": "vulpine_machinery:blueprint",
+  "recipe": "vulpine_machinery:weaponry/pepperbox",
+  "chance": 0.4
+}

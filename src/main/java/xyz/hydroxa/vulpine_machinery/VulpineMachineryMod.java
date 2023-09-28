@@ -19,6 +19,7 @@ import xyz.hydroxa.vulpine_machinery.effect.ModEffects;
 import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletRenderer;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
+import xyz.hydroxa.vulpine_machinery.loot.ModLootModifiers;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 import xyz.hydroxa.vulpine_machinery.recipe.ModRecipes;
 import xyz.hydroxa.vulpine_machinery.world.inventory.ModMenus;
@@ -40,6 +41,8 @@ public class VulpineMachineryMod
         ModMenus.register(modEventBus);
         ModRecipes.register(modEventBus);
         ModEffects.register(modEventBus);
+
+        ModLootModifiers.register(modEventBus);
 
         modEventBus.addListener(this::commonSetup);
 
