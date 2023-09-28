@@ -63,6 +63,7 @@
 	"entity.vulpine_machinery.bullet_muffled": "Pistol Bullet",
 	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet",
 	"death.attack.shot_with_gun": "%1$s was shot by %2$s",
+	"jei.vulpine_machinery.gunsmithing": "Gunsmithing Table",
 
 	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer."
 }

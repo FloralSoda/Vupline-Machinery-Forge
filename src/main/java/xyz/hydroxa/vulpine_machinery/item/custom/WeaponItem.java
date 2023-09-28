@@ -303,10 +303,15 @@ public class WeaponItem extends Item implements Vanishable {
             ItemStack core = ItemStack.of(parts.getCompound(TAG_PARTS_CORE));
             ItemStack bridge = ItemStack.of(parts.getCompound(TAG_PARTS_BRIDGE));
             ItemStack handle = ItemStack.of(parts.getCompound(TAG_PARTS_HANDLE));
-            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.barrel", barrel.getDisplayName()));
-            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.core", core.getDisplayName()));
-            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bridge", bridge.getDisplayName()));
-            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.handle", handle.getDisplayName()));
+            if (!barrel.isEmpty())
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.barrel", barrel.getDisplayName()));
+            if (!core.isEmpty())
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.core", core.getDisplayName()));
+            if (!bridge.isEmpty())
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bridge", bridge.getDisplayName()));
+            if (!handle.isEmpty())
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.handle", handle.getDisplayName()));
+
             if (core.getItem() instanceof CoreItem coreItem) {
                 pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bullet_requirement", coreItem.Properties.BulletItem.getDefaultInstance().getDisplayName().getString().replaceAll("[\\[\\]]", "")));
             }

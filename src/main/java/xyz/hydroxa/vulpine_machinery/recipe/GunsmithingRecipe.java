@@ -39,6 +39,19 @@ public class GunsmithingRecipe implements Recipe<SimpleContainer> {
         this.recipe = recipe;
     }
 
+    public Ingredient getBarrel() {
+        return recipe.get(barrelKey);
+    }
+    public Ingredient getCore() {
+        return recipe.get(coreKey);
+    }
+    public Ingredient getHandle() {
+        return recipe.get(handleKey);
+    }
+    public Ingredient getBridge() {
+        return recipe.get(bridgeKey);
+    }
+
     @Override
     public boolean matches(@NotNull SimpleContainer pContainer, Level pLevel) {
         if (pLevel.isClientSide)
