@@ -1,0 +1,28 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" EA",
+		"ECW",
+		"BW "
+	],
+	"key": {
+		"E": {
+			"item": "minecraft:fermented_spider_eye"
+		},
+		"W": {
+			"item": "minecraft:nether_wart"
+		},
+		"B": {
+			"item": "minecraft:dragon_breath"
+		},
+		"A": {
+			"item": "minecraft:spectral_arrow"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_sanguine"
+	}
+}

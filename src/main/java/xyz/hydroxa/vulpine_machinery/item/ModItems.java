@@ -1,5 +1,6 @@
 package xyz.hydroxa.vulpine_machinery.item;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -55,7 +56,7 @@ public class ModItems {
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Shotgun", new HeavySoundProvider())
                     .bulletType(BulletType.Heavy)
                     .variance(6)
-                    .damageMultiplier(1f/6f)
+                    .damageMultiplier(1f/2f)
                     .ticksPerBulletReloaded(10)
                     .capacity(6)
                     .bulletsPerShot(6)
@@ -120,8 +121,14 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> PEPPERBOX = ITEMS.register("pepperbox",
-            () -> new WeaponItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.MACHINERY_TAB), new WeaponProperties(BARREL_REVOLVE.get(), CORE_STANDARD.get(), BRIDGE.get(), HANDLE.get())
-                    .carrySpeedMultiplier(0, -0.3f)));
+            () -> new WeaponItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.MACHINERY_TAB),
+                    new WeaponProperties(
+                            new ResourceLocation(VulpineMachineryMod.MOD_ID, "weaponry/pepperbox"),
+                            BARREL_REVOLVE.get(),
+                            CORE_STANDARD.get(),
+                            BRIDGE.get(),
+                            HANDLE.get())
+                    .carrySpeedModifier(0, -0.3f)));
 
 
     public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",

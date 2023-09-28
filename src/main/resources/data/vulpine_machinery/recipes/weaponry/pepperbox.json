@@ -1,0 +1,21 @@
+{
+  "type": "vulpine_machinery:gunsmithing",
+  "slots": {
+    "barrel": {
+      "tag": "vulpine_machinery:components/pepperbox_barrels"
+    },
+    "core": {
+      "tag": "vulpine_machinery:components/pepperbox_cores"
+    },
+    "bridge": {
+      "tag": "vulpine_machinery:components/pepperbox_bridges"
+    },
+    "handle": {
+      "tag": "vulpine_machinery:components/pepperbox_handles"
+    }
+  },
+
+  "output": {
+    "item": "vulpine_machinery:pepperbox"
+  }
+}

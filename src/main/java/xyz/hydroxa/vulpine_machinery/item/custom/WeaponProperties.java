@@ -1,5 +1,6 @@
 package xyz.hydroxa.vulpine_machinery.item.custom;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
 
@@ -7,6 +8,7 @@ import java.util.UUID;
 
 public class WeaponProperties {
     public boolean CanHipFire;
+    public boolean Automatic;
     public int AimCarrySpeedMultiplier;
     public int HipCarrySpeedMultiplier;
     public float BulletSpeed;
@@ -15,6 +17,7 @@ public class WeaponProperties {
     public Item DefaultBridge;
     public Item DefaultHandle;
     public float RecoilInDegrees;
+    public ResourceLocation Recipe;
 
     private final UUID hip_carry_uid = UUID.randomUUID();
     private final UUID aim_carry_uid = UUID.randomUUID();
@@ -22,12 +25,15 @@ public class WeaponProperties {
     public AttributeModifier HipCarryModifier = new AttributeModifier(hip_carry_uid.toString(), 1f, AttributeModifier.Operation.ADDITION);
     public AttributeModifier AimCarryModifier = new AttributeModifier(aim_carry_uid.toString(), 1f, AttributeModifier.Operation.ADDITION);
 
-    public WeaponProperties(Item defaultBarrel, Item defaultCore, Item defaultBridge, Item defaultHandle) {
+    public WeaponProperties(ResourceLocation recipe, Item defaultBarrel, Item defaultCore, Item defaultBridge, Item defaultHandle) {
         CanHipFire = true;
         AimCarrySpeedMultiplier = 0;
         HipCarrySpeedMultiplier = 0;
         BulletSpeed = 6f;
         RecoilInDegrees = 2f;
+        Automatic = false;
+
+        this.Recipe = recipe;
 
         DefaultBarrel = defaultBarrel;
         DefaultBridge = defaultBridge;
@@ -35,6 +41,10 @@ public class WeaponProperties {
         DefaultHandle = defaultHandle;
     }
 
+    public WeaponProperties automatic(boolean enabled) {
+        Automatic = enabled;
+        return this;
+    }
     public WeaponProperties canHipFire(boolean enabled) {
         CanHipFire = enabled;
         return this;
@@ -55,7 +65,7 @@ public class WeaponProperties {
      * @param aimCarry The potency for when the gun is being aimed
      * @return Builder pattern.
      */
-    public WeaponProperties carrySpeedMultiplier(float hipCarry, float aimCarry) {
+    public WeaponProperties carrySpeedModifier(float hipCarry, float aimCarry) {
         AimCarryModifier = new AttributeModifier(aim_carry_uid.toString(), aimCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
         HipCarryModifier = new AttributeModifier(hip_carry_uid.toString(), hipCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
         return this;

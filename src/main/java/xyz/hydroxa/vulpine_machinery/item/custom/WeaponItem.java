@@ -17,24 +17,25 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import xyz.hydroxa.vulpine_machinery.audio.ModSoundEvents;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 
 import java.util.List;
 
 public class WeaponItem extends Item implements Vanishable {
-    private static final String TAG_PARTS = "Parts";
-    private static final String TAG_PARTS_BARREL = "Barrel";
-    private static final String TAG_PARTS_CORE = "Core";
-    private static final String TAG_PARTS_BRIDGE = "Bridge";
-    private static final String TAG_PARTS_HANDLE = "Handle";
-    private static final String TAG_BULLETS = "Bullets";
-    private static final String TAG_LAST_RELOAD = "LastReload";
-    private static final String TAG_BARREL_VARIANT = "BarrelVariant";
+    public static final String TAG_PARTS = "Parts";
+    public static final String TAG_PARTS_BARREL = "Barrel";
+    public static final String TAG_PARTS_CORE = "Core";
+    public static final String TAG_PARTS_BRIDGE = "Bridge";
+    public static final String TAG_PARTS_HANDLE = "Handle";
+    public static final String TAG_BULLETS = "Bullets";
+    public static final String TAG_LAST_RELOAD = "LastReload";
+    public static final String TAG_LAST_SHOT = "LastShot";
+    public static final String TAG_BARREL_VARIANT = "BarrelVariant";
+    public static final String TAG_RELOADING = "IsReloading";
 
     public static final float BASE_DAMAGE = 15f;
-    public WeaponProperties Properties;
+    public final WeaponProperties Properties;
     public WeaponItem(Properties pProperties, WeaponProperties properties) {
         super(pProperties);
         Properties = properties;
@@ -152,7 +153,12 @@ public class WeaponItem extends Item implements Vanishable {
         }
         return false;
     }
-
+    public boolean getReloading(ItemStack stack) {
+        return stack.getOrCreateTag().getBoolean(TAG_RELOADING);
+    }
+    public void setReloading(ItemStack stack, boolean state) {
+        stack.getOrCreateTag().putBoolean(TAG_RELOADING, state);
+    }
     @Override
     public int getUseDuration(@NotNull ItemStack pStack) {
         return 72000;
@@ -163,16 +169,20 @@ public class WeaponItem extends Item implements Vanishable {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
             if (!pLevel.isClientSide) {
-                if (getRemainingBullets(itemstack) > 0 && pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
-                    BarrelItem barrel = getBarrel(itemstack);
-                    shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
-                    consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
-                } else {
-                    if (canReload(pPlayer, itemstack)) {
+                if (getRemainingBullets(itemstack) > 0 && pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack) && pLevel.getGameTime() - getFireCooldown(itemstack) >= getBarrel(itemstack).Properties.TicksPerShot) {
+                    if (Properties.Automatic) {
+                        setReloading(itemstack, false);
                         pPlayer.startUsingItem(pUsedHand);
                     } else {
-                        pLevel.playSound(null, pPlayer.blockPosition(), getBarrel(itemstack).Properties.SoundProvider.GetEmptyFireAudio(pPlayer, pLevel, itemstack), SoundSource.PLAYERS,1.0f, 1.0f);
+                        BarrelItem barrel = getBarrel(itemstack);
+                        shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
+                        consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
                     }
+                } else if (canReload(pPlayer, itemstack)) {
+                    setReloading(itemstack, true);
+                    pPlayer.startUsingItem(pUsedHand);
+                } else {
+                    pLevel.playSound(null, pPlayer.blockPosition(), getBarrel(itemstack).Properties.SoundProvider.GetEmptyFireAudio(pPlayer, pLevel, itemstack), SoundSource.PLAYERS,1.0f, 1.0f);
                 }
             }
             return InteractionResultHolder.consume(itemstack);
@@ -191,71 +201,92 @@ public class WeaponItem extends Item implements Vanishable {
         super.onUsingTick(stack, player, count);
 
         BarrelItem barrel = getBarrel(stack);
-        if (count % getReloadInterval(stack) == 0 && getRemainingBullets(stack) < barrel.Properties.Capacity) {
-            if (reload(player, stack))
-                player.getLevel().playSound(null, player.blockPosition(), barrel.Properties.SoundProvider.GetReloadAudio(player, player.level, stack), SoundSource.PLAYERS,1.0f, 1.0f);
+        if (getReloading(stack)) {
+            if (count % getReloadInterval(stack) == 0 && getRemainingBullets(stack) < barrel.Properties.Capacity) {
+                if (reload(player, stack))
+                    player.getLevel().playSound(null, player.blockPosition(), barrel.Properties.SoundProvider.GetReloadAudio(player, player.level, stack), SoundSource.PLAYERS, 1.0f, 1.0f);
+            }
+        } else if (count % barrel.Properties.TicksPerShot == 0) {
+            shootProjectile(player.level, player, stack, barrel, getCore(stack), getBridge(stack), getHandle(stack), player.getUsedItemHand());
+            consumeBullets(stack, barrel.Properties.BulletsPerShot);
         }
+    }
+
+    @Override
+    public @NotNull ItemStack finishUsingItem(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pLivingEntity) {
+        if (getReloading(pStack))
+            setReloading(pStack, false);
+
+        return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
     @Override
     public void inventoryTick(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull Entity pEntity, int pSlotId, boolean pIsSelected) {
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
-        if (!pLevel.isClientSide && pEntity instanceof LivingEntity lEntity) {
-            var attribute = lEntity.getAttribute(Attributes.MOVEMENT_SPEED);
-            if (attribute != null) {
-                if (pIsSelected) {
-                    if (lEntity.isCrouching() && !attribute.hasModifier(Properties.AimCarryModifier)) {
-                        if (attribute.hasModifier(Properties.HipCarryModifier)) {
+        if (!pLevel.isClientSide) {
+            if (pEntity instanceof LivingEntity lEntity) {
+                var attribute = lEntity.getAttribute(Attributes.MOVEMENT_SPEED);
+                if (attribute != null) {
+                    if (pIsSelected) {
+                        if (lEntity.isCrouching() && !attribute.hasModifier(Properties.AimCarryModifier)) {
+                            if (attribute.hasModifier(Properties.HipCarryModifier)) {
+                                attribute.removeModifier(Properties.HipCarryModifier);
+                            }
+                            attribute.addTransientModifier(Properties.AimCarryModifier);
+                        } else if (!lEntity.isCrouching() && !attribute.hasModifier(Properties.HipCarryModifier)) {
+                            if (attribute.hasModifier(Properties.AimCarryModifier)) {
+                                attribute.removeModifier(Properties.AimCarryModifier);
+                            }
+                            attribute.addTransientModifier(Properties.HipCarryModifier);
+                        }
+                    } else {
+                        if (attribute.hasModifier(Properties.HipCarryModifier))
                             attribute.removeModifier(Properties.HipCarryModifier);
-                        }
-                        attribute.addTransientModifier(Properties.AimCarryModifier);
-                    } else if (!lEntity.isCrouching() && !attribute.hasModifier(Properties.HipCarryModifier)) {
-                        if (attribute.hasModifier(Properties.AimCarryModifier)) {
+                        if (attribute.hasModifier(Properties.AimCarryModifier))
                             attribute.removeModifier(Properties.AimCarryModifier);
-                        }
-                        attribute.addTransientModifier(Properties.HipCarryModifier);
                     }
-                } else {
-                    if (attribute.hasModifier(Properties.HipCarryModifier))
-                        attribute.removeModifier(Properties.HipCarryModifier);
-                    if (attribute.hasModifier(Properties.AimCarryModifier))
-                        attribute.removeModifier(Properties.AimCarryModifier);
                 }
             }
         }
     }
+    private long getFireCooldown(ItemStack item) {
+        return item.getOrCreateTag().getLong(TAG_LAST_SHOT);
+    }
+    private void setFireCooldown(ItemStack item, Level level) {
+        item.getOrCreateTag().putLong(TAG_LAST_SHOT, level.getGameTime());
+    }
 
     private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel, CoreItem core, BridgeItem bridge, HandleItem handle, InteractionHand hand) {
         if (!level.isClientSide) {
-            BulletProjectile projectile = new BulletProjectile(level, user, barrel.Properties.BulletType);
-            projectile.setCore(new ItemStack(core));
-            projectile.setDamage(BASE_DAMAGE * barrel.Properties.DamageMultiplier);
-
-            if (barrel.Properties.BulletType == BulletType.HandCannon) {
-                projectile.setPierceLevel((byte) 5);
-            }
-
-            Vec3 lookVector = user.getViewVector(1.0F);
-
-            Vec3 bulletOffset;
-            if (user.isCrouching()) {
-                bulletOffset = new Vec3(0,1,0);
-            } else {
-                bulletOffset = lookVector.cross(new Vec3(0,1,0)).multiply(0.5,1,0.5);
-                if ((user.getMainArm() == HumanoidArm.LEFT && hand == InteractionHand.MAIN_HAND) || (user.getMainArm() == HumanoidArm.RIGHT && hand == InteractionHand.OFF_HAND)) {
-                    bulletOffset = bulletOffset.reverse();
-                }
-                bulletOffset = bulletOffset.add(0,1.4,0);
-            }
-            projectile.setPos(user.getPosition(1.0f).add(bulletOffset));
-
-            Vector3f lookVectorF = new Vector3f(lookVector);
             for (int i = 0; i < Math.min(barrel.Properties.BulletsPerShot, getRemainingBullets(item)); i++) {
-                projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), Properties.BulletSpeed * barrel.Properties.BulletSpeedMultiplier * bridge.Properties.BulletSpeedMultiplier, barrel.Properties.Variance / handle.Properties.AccuracyMultiplier);
-            }
+                BulletProjectile projectile = new BulletProjectile(level, user, barrel.Properties.BulletType);
+                projectile.setCore(new ItemStack(core));
+                projectile.setDamage(BASE_DAMAGE * barrel.Properties.DamageMultiplier);
 
-            level.addFreshEntity(projectile);
-            level.playSound(null, user.blockPosition(), ModSoundEvents.GUNSHOT_NEAR.get(), SoundSource.PLAYERS, 1.0F, 1.0f);
+                if (barrel.Properties.BulletType == BulletType.HandCannon) {
+                    projectile.setPierceLevel((byte) 5);
+                }
+
+                Vec3 lookVector = user.getViewVector(1.0F);
+
+                Vec3 bulletOffset;
+                if (user.isCrouching()) {
+                    bulletOffset = new Vec3(0, 1, 0);
+                } else {
+                    bulletOffset = lookVector.cross(new Vec3(0, 1, 0)).multiply(0.5, 1, 0.5);
+                    if ((user.getMainArm() == HumanoidArm.LEFT && hand == InteractionHand.MAIN_HAND) || (user.getMainArm() == HumanoidArm.RIGHT && hand == InteractionHand.OFF_HAND)) {
+                        bulletOffset = bulletOffset.reverse();
+                    }
+                    bulletOffset = bulletOffset.add(0, 1.4, 0);
+                }
+                projectile.setPos(user.getPosition(1.0f).add(bulletOffset));
+
+                Vector3f lookVectorF = new Vector3f(lookVector);
+                projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), Properties.BulletSpeed * barrel.Properties.BulletSpeedMultiplier * bridge.Properties.BulletSpeedMultiplier, level.random.nextFloat() * (barrel.Properties.Variance / handle.Properties.AccuracyMultiplier));
+                level.addFreshEntity(projectile);
+            }
+            setFireCooldown(item, level);
+            level.playSound(null, user.blockPosition(), barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), SoundSource.PLAYERS, 1.0F, 1.0f);
         } else {
             user.playSound(barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), 1.0F, 1.0f);
         }
@@ -296,35 +327,45 @@ public class WeaponItem extends Item implements Vanishable {
         return super.getName(pStack);
     }
 
-    @Override
-    public @NotNull ItemStack getDefaultInstance() {
-        ItemStack def = new ItemStack(this);
-        CompoundTag tag = def.getOrCreateTag();
-        CompoundTag parts = new CompoundTag();
+    public ItemStack outfitWith(ItemStack weaponItem, ItemStack barrelItem, ItemStack coreItem, ItemStack bridgeItem, ItemStack handleItem) {
+        CompoundTag tag = weaponItem.getOrCreateTag();
+        CompoundTag parts = tag.getCompound(TAG_PARTS);
 
-        CompoundTag barrel = new CompoundTag();
-        new ItemStack(Properties.DefaultBarrel).save(barrel);
+        CompoundTag barrel_tag = new CompoundTag();
+        barrelItem.save(barrel_tag);
 
-        CompoundTag core = new CompoundTag();
-        new ItemStack(Properties.DefaultCore).save(core);
+        CompoundTag core_tag = new CompoundTag();
+        coreItem.save(core_tag);
 
-        CompoundTag bridge = new CompoundTag();
-        new ItemStack(Properties.DefaultBridge).save(bridge);
+        CompoundTag bridge_tag = new CompoundTag();
+        bridgeItem.save(bridge_tag);
 
-        CompoundTag handle = new CompoundTag();
-        new ItemStack(Properties.DefaultHandle).save(handle);
+        CompoundTag handle_tag = new CompoundTag();
+        handleItem.save(handle_tag);
 
-        parts.put(TAG_PARTS_BARREL, barrel);
-        parts.put(TAG_PARTS_CORE, core);
-        parts.put(TAG_PARTS_BRIDGE, bridge);
-        parts.put(TAG_PARTS_HANDLE, handle);
+        parts.put(TAG_PARTS_BARREL, barrel_tag);
+        parts.put(TAG_PARTS_CORE, core_tag);
+        parts.put(TAG_PARTS_BRIDGE, bridge_tag);
+        parts.put(TAG_PARTS_HANDLE, handle_tag);
 
         tag.put(TAG_PARTS, parts);
 
         tag.putLong(TAG_LAST_RELOAD, 0);
         tag.putInt(TAG_BULLETS, 0);
-        if (Properties.DefaultBarrel instanceof BarrelItem bi)
+        if (barrelItem.getItem() instanceof BarrelItem bi)
             tag.putInt(TAG_BARREL_VARIANT, bi.ID);
-        return def;
+
+        return weaponItem;
+    }
+
+    public ItemStack outfitWith(ItemStack weaponItem, @NotNull Item barrel, @NotNull Item core, @NotNull Item bridge, @NotNull Item handle) {
+        return outfitWith(weaponItem, new ItemStack(barrel), new ItemStack(core), new ItemStack(bridge), new ItemStack(handle));
+    }
+
+    @Override
+    public @NotNull ItemStack getDefaultInstance() {
+        ItemStack def = new ItemStack(this);
+
+        return outfitWith(def, Properties.DefaultBarrel, Properties.DefaultCore, Properties.DefaultBridge, Properties.DefaultHandle);
     }
 }

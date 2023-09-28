@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "vulpine_machinery:core_assassin",
+    "vulpine_machinery:core_bean",
+    "vulpine_machinery:core_ender",
+    "vulpine_machinery:core_flame",
+    "vulpine_machinery:core_health",
+    "vulpine_machinery:core_ice",
+    "vulpine_machinery:core_prismarine",
+    "vulpine_machinery:core_sanguine",
+    "vulpine_machinery:core_shield",
+    "vulpine_machinery:core_slime",
+    "vulpine_machinery:core_wither",
+    "vulpine_machinery:core_standard"
+  ]
+}

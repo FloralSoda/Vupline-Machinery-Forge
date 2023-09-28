@@ -41,8 +41,14 @@
 	"tooltip.vulpine_machinery.bridge": "§6Bridge: §7%s§r",
 	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
 	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
-	
-	"item.vulpine_machinery.blueprint": "Blueprint:%s",
+	"tooltip.vulpine_machinery.more": "Press %s to see more",
+
+	"tooltip.vulpine_machinery.barrel.capacity": "Base Capacity: %d",
+	"tooltip.vulpine_machinery.barrel.shots": "Bullets per shot: %d",
+
+	"blueprint.pepperbox": "Pepperbox",
+
+	"item.vulpine_machinery.blueprint": "Blueprint: %s",
 	"item.vulpine_machinery.beans": "Beans",
 	
 	"sounds.vulpine_machinery.gunshot": "Gunshot",
@@ -56,6 +62,7 @@
 	"entity.vulpine_machinery.bullet_heavy": "Heavy Bullet",
 	"entity.vulpine_machinery.bullet_muffled": "Pistol Bullet",
 	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet",
+	"death.attack.shot_with_gun": "%1$s was shot by %2$s",
 
 	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer."
 }

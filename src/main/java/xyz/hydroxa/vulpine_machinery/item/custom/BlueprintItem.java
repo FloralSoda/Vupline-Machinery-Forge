@@ -7,10 +7,9 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
-import xyz.hydroxa.vulpine_machinery.item.ModItems;
 
 public class BlueprintItem extends Item {
-    private static final String TAG_PRINT_ID = "Print";
+    public static final String TAG_PRINT_ID = "Print";
 
     public BlueprintItem(Properties pProperties) {
         super(pProperties);
@@ -29,11 +28,9 @@ public class BlueprintItem extends Item {
     public @NotNull Component getName(ItemStack pStack) {
         if (pStack.getItem() instanceof BlueprintItem) {
             CompoundTag tags = pStack.getOrCreateTag();
-            CompoundTag print = tags.getCompound(TAG_PRINT_ID);
-            ItemStack target = ItemStack.of(print);
-            if (target.getItem() instanceof WeaponItem) {
-                return Component.translatable(this.getDescriptionId(), Component.translatable(target.getDescriptionId()));
-            }
+            String print = tags.getString(TAG_PRINT_ID);
+            String description = "blueprint." + print.substring(print.indexOf("/") + 1);
+            return Component.translatable(this.getDescriptionId(), Component.translatable(description));
         }
 
         return super.getName(pStack);
@@ -43,10 +40,8 @@ public class BlueprintItem extends Item {
     public @NotNull ItemStack getDefaultInstance() {
         ItemStack def = new ItemStack(this);
         CompoundTag tag = def.getOrCreateTag();
-        CompoundTag print = new CompoundTag();
-        ModItems.PEPPERBOX.get().getDefaultInstance().save(print);
 
-        tag.put(TAG_PRINT_ID, print);
+        tag.putString(TAG_PRINT_ID, "vulpine_machinery:weaponry/pepperbox");
         return def;
     }
 }

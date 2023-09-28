@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "vulpine_machinery:barrel_muffle",
+    "vulpine_machinery:barrel_revolve",
+    "vulpine_machinery:barrel_shotgun",
+    "vulpine_machinery:barrel_slug"
+  ]
+}
