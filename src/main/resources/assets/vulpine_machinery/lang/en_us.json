@@ -62,6 +62,9 @@
 	"sounds.vulpine_machinery.hand_cannon": "Thumping Gunshot",
 	"sounds.vulpine_machinery.muffled_gunshot": "Muffled Shot",
 
+	"effect.vulpine_machinery.slimy": "Slimed",
+	"effect.vulpine_machinery.freeze": "Frozen",
+
 	"itemGroup.vulpine_machinery_tab": "Vulpine Machinery",
 
 	"entity.vulpine_machinery.bullet_pistol": "Pistol Bullet",

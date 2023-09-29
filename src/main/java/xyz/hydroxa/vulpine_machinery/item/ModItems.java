@@ -117,11 +117,11 @@ public class ModItems {
             () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_PRISMARINE.get()))); //TODO
     public static final RegistryObject<Item> CORE_SHIELD = ITEMS.register("core_shield",
-            () -> new ShieldGunCore(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+            () -> new ShieldCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_SLIME = ITEMS.register("core_slime",
-            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
-                    .bulletItem(BULLET_PRISMARINE.get()))); //TODO
+            () -> new SlimeCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+                    .bulletItem(BULLET_PRISMARINE.get())));
     public static final RegistryObject<Item> CORE_SANGUINE = ITEMS.register("core_sanguine",
             () -> new SanguineCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_SOUL.get())));

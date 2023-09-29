@@ -15,6 +15,9 @@ public class ModEffects {
     public static final RegistryObject<MobEffect> FREEZE
             = MOB_EFFECTS.register("freeze", () ->
             new FreezeStatusEffect(MobEffectCategory.HARMFUL, 0x88FFFF));
+    public static final RegistryObject<MobEffect> SLIMY
+            = MOB_EFFECTS.register("slimy", () ->
+            new BlankStatusEffect(MobEffectCategory.NEUTRAL, 0x66FF11));
 
     public static void register(IEventBus eventBus) {
         MOB_EFFECTS.register(eventBus);

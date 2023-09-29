@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "package": "xyz.hydroxa.vulpine_machinery.mixin",
+  "mixins": [
+    "SlimeCoreApplicatorMixin"
+  ],
+  "client": [
+
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "vulpine_machinery.refmap.json"
+}

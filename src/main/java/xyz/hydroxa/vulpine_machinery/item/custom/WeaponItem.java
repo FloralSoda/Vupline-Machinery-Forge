@@ -164,9 +164,17 @@ public class WeaponItem extends Item implements Vanishable {
         return 72000;
     }
 
+    public boolean isInvalid(ItemStack weaponItem) {
+        return getBarrel(weaponItem) == null || getCore(weaponItem) == null || getBridge(weaponItem) == null || getHandle(weaponItem) == null;
+    }
+
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
+
+        if (isInvalid(itemstack))
+            return InteractionResultHolder.pass(itemstack);
+
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
             if (getRemainingBullets(itemstack) > 0 &&
                     pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
@@ -199,6 +207,11 @@ public class WeaponItem extends Item implements Vanishable {
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         super.onUsingTick(stack, player, count);
+
+        if (isInvalid(stack)) {
+            player.stopUsingItem();
+            return;
+        }
 
         BarrelItem barrel = getBarrel(stack);
         if (getReloading(stack)) {
