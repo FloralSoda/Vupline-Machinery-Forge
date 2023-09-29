@@ -168,26 +168,22 @@ public class WeaponItem extends Item implements Vanishable {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
-            if (!pLevel.isClientSide) {
-                if (getRemainingBullets(itemstack) > 0 &&
-                        pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
-                    if (pLevel.getGameTime() - getFireCooldown(itemstack) >= getBarrel(itemstack).Properties.TicksPerShot) {
-                        if (Properties.Automatic) {
-                            setReloading(itemstack, false);
-                            pPlayer.startUsingItem(pUsedHand);
-                        } else {
-                            setReloading(itemstack, false);
-                            BarrelItem barrel = getBarrel(itemstack);
-                            shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
-                            consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
-                        }
+            if (getRemainingBullets(itemstack) > 0 &&
+                    pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
+                if (pLevel.getGameTime() - getFireCooldown(itemstack) >= getBarrel(itemstack).Properties.TicksPerShot) {
+                    if (Properties.Automatic) {
+                        setReloading(itemstack, false);
+                        pPlayer.startUsingItem(pUsedHand);
+                    } else {
+                        setReloading(itemstack, false);
+                        BarrelItem barrel = getBarrel(itemstack);
+                        shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
+                        consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
                     }
-                } else if (canReload(pPlayer, itemstack)) {
-                    setReloading(itemstack, true);
-                    pPlayer.startUsingItem(pUsedHand);
-                } else {
-                    pLevel.playSound(null, pPlayer.blockPosition(), getBarrel(itemstack).Properties.SoundProvider.GetEmptyFireAudio(pPlayer, pLevel, itemstack), SoundSource.PLAYERS,1.0f, 1.0f);
                 }
+            } else if (canReload(pPlayer, itemstack)) {
+                setReloading(itemstack, true);
+                pPlayer.startUsingItem(pUsedHand);
             }
             return InteractionResultHolder.consume(itemstack);
         } else
@@ -289,10 +285,12 @@ public class WeaponItem extends Item implements Vanishable {
                 projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), Properties.BulletSpeed * barrel.Properties.BulletSpeedMultiplier * bridge.Properties.BulletSpeedMultiplier, level.random.nextFloat() * (barrel.Properties.Variance / handle.Properties.AccuracyMultiplier));
                 level.addFreshEntity(projectile);
             }
+
+            user.setXRot(user.getXRot() - (Properties.RecoilInDegrees * barrel.Properties.RecoilMultiplier));
             setFireCooldown(item, level);
             level.playSound(null, user.blockPosition(), barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), SoundSource.PLAYERS, 1.0F, 1.0f);
         } else {
-            user.playSound(barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), 1.0F, 1.0f);
+            user.setXRot(user.getXRot() - (Properties.RecoilInDegrees * barrel.Properties.RecoilMultiplier));
         }
     }
 

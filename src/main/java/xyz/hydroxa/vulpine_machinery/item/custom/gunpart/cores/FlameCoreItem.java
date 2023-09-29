@@ -26,7 +26,6 @@ public class FlameCoreItem extends StandardCoreItem {
         double d0 = entity.getX() + 0.5D;
         double d1 = entity.getY() + 0.7D;
         double d2 = entity.getZ() + 0.5D;
-        entity.level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         entity.level.addParticle(ParticleTypes.SMALL_FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 }

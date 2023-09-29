@@ -1,0 +1,21 @@
+{
+  "type": "vulpine_machinery:gunsmithing",
+  "slots": {
+    "barrel": {
+      "tag": "vulpine_machinery:components/rifle_barrels"
+    },
+    "core": {
+      "tag": "vulpine_machinery:components/rifle_cores"
+    },
+    "bridge": {
+      "tag": "vulpine_machinery:components/rifle_bridges"
+    },
+    "handle": {
+      "tag": "vulpine_machinery:components/rifle_handles"
+    }
+  },
+
+  "output": {
+    "item": "vulpine_machinery:rifle"
+  }
+}

@@ -31,7 +31,7 @@ public class AssassinCoreItem extends CoreItem {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (hitResult.getEntity() instanceof LivingEntity live) {
+                if (hitResult.getEntity().isAlive() && hitResult.getEntity() instanceof LivingEntity live) {
                     live.addEffect(new MobEffectInstance(MobEffects.POISON, BASE_DURATION, BASE_AMPLIFIER));
                 }
             }

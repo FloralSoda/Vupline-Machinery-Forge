@@ -8,13 +8,17 @@
 	"item.vulpine_machinery.bullet_ender": "Ender Infused Bullet",
 	"item.vulpine_machinery.bullet_prismarine": "Prismarine Infused Bullet",
 	"item.vulpine_machinery.bullet_soul": "Soul Infused Bullet",
+
 	"item.vulpine_machinery.barrel_muffle": "Muffled Barrel",
 	"item.vulpine_machinery.barrel_revolve": "Revolving Barrel",
 	"item.vulpine_machinery.barrel_shotgun": "Shotgun Barrel",
 	"item.vulpine_machinery.barrel_slug": "Slug Barrel",
+	"item.vulpine_machinery.barrel_double": "Double Barrel",
+
 	"item.vulpine_machinery.bridge": "Gun Bridge",
 	"item.vulpine_machinery.mechanized_bridge": "Mechanized Bridge",
 	"item.vulpine_machinery.tweaked_bridge": "Tweaked Bridge",
+
 	"item.vulpine_machinery.handle": "Gun Handle",
 	
 	"item.vulpine_machinery.core_assassin": "Assassin's Gun Core",
@@ -35,6 +39,7 @@
 	"key.vulpine_machinery.reload": "Reload Weapon",
 
 	"item.vulpine_machinery.pepperbox": "%s Pepperbox",
+	"item.vulpine_machinery.rifle": "%s Rifle",
 
 	"tooltip.vulpine_machinery.barrel": "§6Barrel: §7%s§r",
 	"tooltip.vulpine_machinery.core": "§6Core: §7%s§r",
@@ -47,6 +52,7 @@
 	"tooltip.vulpine_machinery.barrel.shots": "Bullets per shot: %d",
 
 	"blueprint.pepperbox": "Pepperbox",
+	"blueprint.rifle": "Rifle",
 
 	"item.vulpine_machinery.blueprint": "Blueprint: %s",
 	"item.vulpine_machinery.beans": "Beans",
@@ -63,6 +69,7 @@
 	"entity.vulpine_machinery.bullet_muffled": "Pistol Bullet",
 	"entity.vulpine_machinery.bullet_hand_cannon": "Hand Cannon Bullet",
 	"death.attack.shot_with_gun": "%1$s was shot by %2$s",
+	"death.attack.sanguine_shot": "%1$s ran out of life essence",
 	"jei.vulpine_machinery.gunsmithing": "Gunsmithing Table",
 
 	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer."

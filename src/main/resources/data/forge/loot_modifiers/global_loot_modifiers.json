@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "vulpine_machinery:blueprint_pepperbox"
+    "vulpine_machinery:blueprint_pepperbox",
+    "vulpine_machinery:blueprint_rifle"
   ]
 }

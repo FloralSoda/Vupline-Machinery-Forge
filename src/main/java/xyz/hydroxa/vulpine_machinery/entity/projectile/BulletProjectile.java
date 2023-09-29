@@ -168,6 +168,8 @@ public class BulletProjectile extends Projectile {
         if (core != null) {
             getCore().onTick(this, getOwner());
         }
+
+        level.addParticle(ParticleTypes.SMOKE, getX(), getY(), getZ(), 0.0D, 0.0D, 0.0D);
     }
 
     /**

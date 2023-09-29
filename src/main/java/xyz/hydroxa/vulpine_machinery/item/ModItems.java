@@ -55,11 +55,21 @@ public class ModItems {
     public static final RegistryObject<Item> BARREL_SHOTGUN = ITEMS.register("barrel_shotgun",
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Shotgun", new HeavySoundProvider())
                     .bulletType(BulletType.Heavy)
-                    .variance(6)
+                    .variance(12f)
                     .damageMultiplier(1f/2f)
                     .ticksPerBulletReloaded(10)
                     .capacity(6)
                     .bulletsPerShot(6)
+                    .ticksPerShot(5)
+                    .recoilMultiplier(1.25f)));
+    public static final RegistryObject<Item> BARREL_DOUBLE = ITEMS.register("barrel_double",
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Double", new HeavySoundProvider())
+                    .bulletType(BulletType.Heavy)
+                    .variance(12f)
+                    .damageMultiplier(1f/2f)
+                    .ticksPerBulletReloaded(10)
+                    .capacity(2)
+                    .bulletsPerShot(2)
                     .ticksPerShot(5)
                     .recoilMultiplier(1.25f)));
     public static final RegistryObject<Item> BARREL_SLUG = ITEMS.register("barrel_slug",
@@ -101,8 +111,8 @@ public class ModItems {
             () -> new HealthCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_ICE = ITEMS.register("core_ice",
-            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
-                    .bulletItem(BULLET.get()))); //TODO
+            () -> new IceCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+                    .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_PRISMARINE = ITEMS.register("core_prismarine",
             () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_PRISMARINE.get()))); //TODO
@@ -113,8 +123,8 @@ public class ModItems {
             () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_PRISMARINE.get()))); //TODO
     public static final RegistryObject<Item> CORE_SANGUINE = ITEMS.register("core_sanguine",
-            () -> new StandardCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
-                    .bulletItem(BULLET_SOUL.get()))); //TODO
+            () -> new SanguineCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+                    .bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_WITHER = ITEMS.register("core_wither",
             () -> new WitherCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_SOUL.get())));
@@ -128,7 +138,17 @@ public class ModItems {
                             CORE_STANDARD.get(),
                             BRIDGE.get(),
                             HANDLE.get())
-                    .carrySpeedModifier(0, -0.3f)));
+                    .carrySpeedModifier(0, -0.3f)
+                    .recoil(4f)));
+    public static final RegistryObject<Item> RIFLE = ITEMS.register("rifle",
+            () -> new WeaponItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.MACHINERY_TAB),
+                    new WeaponProperties(
+                            new ResourceLocation(VulpineMachineryMod.MOD_ID, "weaponry/rifle"),
+                            BARREL_REVOLVE.get(),
+                            CORE_STANDARD.get(),
+                            BRIDGE.get(),
+                            HANDLE.get())
+                            .carrySpeedModifier(0, -0.3f)));
 
 
     public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",

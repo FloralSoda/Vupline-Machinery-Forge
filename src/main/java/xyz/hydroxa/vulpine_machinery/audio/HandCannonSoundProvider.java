@@ -5,7 +5,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 
 public class HandCannonSoundProvider implements SoundProvider {
     @Override
@@ -15,7 +14,6 @@ public class HandCannonSoundProvider implements SoundProvider {
 
     @Override
     public SoundEvent GetGunshotNearAudio(LivingEntity user, Level level, ItemStack weapon) {
-        VulpineMachineryMod.LOGGER.info("Playing hand cannon near");
         return ModSoundEvents.HAND_CANNON_NEAR.get();
     }
 

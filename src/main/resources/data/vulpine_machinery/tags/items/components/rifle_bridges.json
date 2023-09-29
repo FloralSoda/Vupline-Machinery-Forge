@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "vulpine_machinery:bridge",
+    "vulpine_machinery:mechanized_bridge",
+    "vulpine_machinery:tweaked_bridge"
+  ]
+}

@@ -3,11 +3,11 @@
   "conditions": [
     {
       "condition": "forge:loot_table_id",
-      "loot_table_id": "chests/stronghold_library"
+      "loot_table_id": "chests/bastion_treasure"
     }
   ],
 
   "item": "vulpine_machinery:blueprint",
-  "recipe": "vulpine_machinery:weaponry/pepperbox",
-  "chance": 0.2
+  "recipe": "vulpine_machinery:weaponry/rifle",
+  "chance": 0.4
 }
