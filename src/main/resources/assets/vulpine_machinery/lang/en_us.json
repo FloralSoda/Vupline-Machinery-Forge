@@ -24,11 +24,11 @@
 	"item.vulpine_machinery.core_assassin": "Assassin's Gun Core",
 	"item.vulpine_machinery.core_bean": "Bean",
 	"item.vulpine_machinery.core_cursed": "Cursed Gun Core (NYI)",
-	"item.vulpine_machinery.core_ender": "Ender Infused Gun Core",
+	"item.vulpine_machinery.core_ender": "Ender Gun Core",
 	"item.vulpine_machinery.core_flame": "Flaming Gun Core",
 	"item.vulpine_machinery.core_health": "Healing Gun Core",
 	"item.vulpine_machinery.core_ice": "Frosting Gun Core",
-	"item.vulpine_machinery.core_prismarine": "Prismarine Infused Gun Core",
+	"item.vulpine_machinery.core_prismarine": "Prismarine Gun Core NYI",
 	"item.vulpine_machinery.core_shield": "Shielding Gun Core",
 	"item.vulpine_machinery.core_slime": "Slimy Gun Core",
 	"item.vulpine_machinery.core_standard": "Standard Gun Core",
@@ -42,14 +42,28 @@
 	"item.vulpine_machinery.rifle": "%s Rifle",
 
 	"tooltip.vulpine_machinery.barrel": "§6Barrel: §7%s§r",
-	"tooltip.vulpine_machinery.core": "§6Core: §7%s§r",
+	"tooltip.vulpine_machinery.core":   "§6Core: §7%s§r",
 	"tooltip.vulpine_machinery.bridge": "§6Bridge: §7%s§r",
 	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
 	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
-	"tooltip.vulpine_machinery.more": "Press %s to see more",
+	"tooltip.vulpine_machinery.more": "§7Press §f[%s] §7to see more",
+	"tooltip.vulpine_machinery.bad_gun": "Invalid gun!",
 
-	"tooltip.vulpine_machinery.barrel.capacity": "Base Capacity: %d",
-	"tooltip.vulpine_machinery.barrel.shots": "Bullets per shot: %d",
+	"tooltip.vulpine_machinery.barrel.guns":     "§6Compatible with: §7%s§r",
+	"tooltip.vulpine_machinery.barrel.capacity": "§6Base Capacity: §7%.2f§r",
+	"tooltip.vulpine_machinery.barrel.shots":    "§6Bullets per shot: §7%.2f§r",
+	"tooltip.vulpine_machinery.barrel.rate":     "§6Fire Rate: §7%.2f§7/s§r",
+	"tooltip.vulpine_machinery.barrel.reload":   "§6Reload Speed: §7%.2f§7/s§r",
+	"tooltip.vulpine_machinery.barrel.accuracy": "§6Variation: §7%.2f§7°§r",
+	"tooltip.vulpine_machinery.barrel.damage":   "§6Damage: §7x%.2f§r",
+	"tooltip.vulpine_machinery.barrel.speed":    "§6Bullet Speed: §7x%.2f§r",
+	"tooltip.vulpine_machinery.barrel.recoil":   "§6Recoil: §7x%.2f§r",
+
+	"tooltip.vulpine_machinery.bridge.reload":   "§6Reload Speed: §7%.2f§7/s§r",
+	"tooltip.vulpine_machinery.bridge.recoil":   "§6Bullet Speed: §7x%.2f§r",
+
+	"tooltip.vulpine_machinery.handle.accuracy": "§6Accuracy: §7x%.2f§r",
+	"tooltip.vulpine_machinery.handle.recoil": "§6Recoil: §7x%.2f§r",
 
 	"blueprint.pepperbox": "Pepperbox",
 	"blueprint.rifle": "Rifle",
@@ -75,5 +89,6 @@
 	"death.attack.sanguine_shot": "%1$s ran out of life essence",
 	"jei.vulpine_machinery.gunsmithing": "Gunsmithing Table",
 
-	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer."
+	"message.vulpine_machinery.render_helper_obtained": "Please do not spawn this item in, it's implemented because I'm lazy to code a custom renderer and it's easier to just use an item renderer.",
+	"message.vulpine_machinery.invalid_gun_obtained": "If you got this without cheats, please report the issue to the developers of Vulpine Machinery or the addon that created this item"
 }

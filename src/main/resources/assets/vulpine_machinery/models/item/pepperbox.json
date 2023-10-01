@@ -6,6 +6,32 @@
 		"2": "vulpine_machinery:item/guns/pepperbox/barrel_revolve",
 		"particle": "barrel_6"
 	},
+	"overrides": [
+		{
+			"predicate": {
+				"custom_model_data": 4
+			},
+			"model": "vulpine_machinery:item/pepperbox_revolver"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 10
+			},
+			"model": "vulpine_machinery:item/pepperbox_shotgun"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 11
+			},
+			"model": "vulpine_machinery:item/pepperbox_slug"
+		},
+		{
+			"predicate": {
+				"custom_model_data": 13
+			},
+			"model": "vulpine_machinery:item/pepperbox_muffled"
+		}
+	],
 	"elements": [
 		{
 			"name": "HandleMain",

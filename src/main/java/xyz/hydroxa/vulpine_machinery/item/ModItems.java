@@ -47,13 +47,13 @@ public class ModItems {
             () -> new HandleItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new HandleProperties()));
 
     public static final RegistryObject<Item> BARREL_REVOLVE = ITEMS.register("barrel_revolve",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 0, new BarrelProperties("Revolving", new PistolSoundProvider())
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Revolving", new PistolSoundProvider())
                     .bulletType(BulletType.Pistol)
                     .capacity(6)
                     .variance(1f)
                     .ticksPerBulletReloaded(10)));
     public static final RegistryObject<Item> BARREL_SHOTGUN = ITEMS.register("barrel_shotgun",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Shotgun", new HeavySoundProvider())
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Shotgun", new HeavySoundProvider())
                     .bulletType(BulletType.Heavy)
                     .variance(12f)
                     .damageMultiplier(1f/2f)
@@ -63,7 +63,7 @@ public class ModItems {
                     .ticksPerShot(5)
                     .recoilMultiplier(1.25f)));
     public static final RegistryObject<Item> BARREL_DOUBLE = ITEMS.register("barrel_double",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 1, new BarrelProperties("Double", new HeavySoundProvider())
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB),  new BarrelProperties("Double", new HeavySoundProvider())
                     .bulletType(BulletType.Heavy)
                     .variance(12f)
                     .damageMultiplier(1f/2f)
@@ -73,7 +73,7 @@ public class ModItems {
                     .ticksPerShot(5)
                     .recoilMultiplier(1.25f)));
     public static final RegistryObject<Item> BARREL_SLUG = ITEMS.register("barrel_slug",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 2, new BarrelProperties("Slug", new HandCannonSoundProvider())
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Slug", new HandCannonSoundProvider())
                     .damageMultiplier(2f)
                     .bulletType(BulletType.HandCannon)
                     .variance(2)
@@ -82,7 +82,7 @@ public class ModItems {
                     .bulletSpeedMultiplier(0.5f)
                     .recoilMultiplier(1.5f)));
     public static final RegistryObject<Item> BARREL_MUFFLE = ITEMS.register("barrel_muffle",
-            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), 3, new BarrelProperties("Muffled", new MuffledSoundProvider())
+            () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Muffled", new MuffledSoundProvider())
                     .bulletType(BulletType.Muffled)
                     .variance(0.5f)
                     .ticksPerBulletReloaded(8)

@@ -1,0 +1,6 @@
+{
+	"parent": "vulpine_machinery:item/pepperbox",
+	"textures": {
+		"2": "vulpine_machinery:item/guns/pepperbox/barrel_revolve"
+	}
+}

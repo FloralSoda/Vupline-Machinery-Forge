@@ -3,7 +3,7 @@ package xyz.hydroxa.vulpine_machinery.item.custom;
 import com.mojang.math.Vector3f;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -31,7 +31,7 @@ public class WeaponItem extends Item implements Vanishable {
     public static final String TAG_BULLETS = "Bullets";
     public static final String TAG_LAST_RELOAD = "LastReload";
     public static final String TAG_LAST_SHOT = "LastShot";
-    public static final String TAG_BARREL_VARIANT = "BarrelVariant";
+    public static final String TAG_BARREL_VARIANT = "CustomModelData";
     public static final String TAG_RELOADING = "IsReloading";
 
     public static final float BASE_DAMAGE = 15f;
@@ -172,9 +172,11 @@ public class WeaponItem extends Item implements Vanishable {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
 
-        if (isInvalid(itemstack))
+        if (isInvalid(itemstack)) {
+            if (pLevel.isClientSide)
+                pPlayer.sendSystemMessage(getGunObtainedText());
             return InteractionResultHolder.pass(itemstack);
-
+        }
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
             if (getRemainingBullets(itemstack) > 0 &&
                     pPlayer.getLevel().getGameTime() - getTimeSinceLastReload(itemstack) >= getReloadInterval(itemstack)) {
@@ -204,11 +206,24 @@ public class WeaponItem extends Item implements Vanishable {
         return (int)((float)barrel.Properties.TicksPerBulletReloaded / bridge.Properties.ReloadSpeedMultiplier);
     }
 
+    public MutableComponent getGunObtainedText() {
+        String url = "https://github.com/FloralSoda/Vulpine-Machinery-Forge/issues";
+        MutableComponent component = Component.translatable("message.vulpine_machinery.invalid_gun_obtained").withStyle(Style.EMPTY
+                .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(url)))
+                .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
+                .withColor(TextColor.fromRgb(0x8888FF))
+                .withUnderlined(true));
+
+        return component;
+    }
+
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         super.onUsingTick(stack, player, count);
 
         if (isInvalid(stack)) {
+            if (player.level.isClientSide)
+                player.sendSystemMessage(getGunObtainedText());
             player.stopUsingItem();
             return;
         }
@@ -309,8 +324,6 @@ public class WeaponItem extends Item implements Vanishable {
 
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-
         if (pStack.getItem() instanceof WeaponItem) {
             CompoundTag tags = pStack.getOrCreateTag();
             CompoundTag parts = tags.getCompound(TAG_PARTS);
@@ -330,7 +343,11 @@ public class WeaponItem extends Item implements Vanishable {
             if (core.getItem() instanceof CoreItem coreItem) {
                 pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bullet_requirement", coreItem.Properties.BulletItem.getDefaultInstance().getDisplayName().getString().replaceAll("[\\[\\]]", "")));
             }
+        } else if (isInvalid(pStack)) {
+            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bad_gun"));
         }
+
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 
     @Override
@@ -342,6 +359,8 @@ public class WeaponItem extends Item implements Vanishable {
             if (barrel.getItem() instanceof BarrelItem bi) {
                 return Component.translatable(this.getDescriptionId(), bi.Properties.BarrelName);
             }
+        } else if (isInvalid(pStack)) {
+            return Component.literal(Component.translatable(this.getDescriptionId()).getString().substring(2));
         }
 
         return super.getName(pStack);
