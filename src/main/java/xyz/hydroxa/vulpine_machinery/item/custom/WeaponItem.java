@@ -25,7 +25,7 @@ import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 
 import java.util.List;
 
-public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mixin rendering to render these in the center when crouching
+public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
     public static final String TAG_PARTS = "Parts";
     public static final String TAG_PARTS_BARREL = "Barrel";
     public static final String TAG_PARTS_CORE = "Core";
@@ -184,7 +184,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
 
         if (isInvalid(itemstack)) {
             if (pLevel.isClientSide)
-                pPlayer.sendSystemMessage(getGunObtainedText());
+                pPlayer.sendSystemMessage(getBadGunObtainedText());
             return InteractionResultHolder.pass(itemstack);
         }
         if (!pPlayer.isUsingItem() && itemstack.getItem() instanceof WeaponItem) {
@@ -217,15 +217,14 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
         return (int)((float)barrel.Properties.TicksPerBulletReloaded / bridge.Properties.ReloadSpeedMultiplier);
     }
 
-    public MutableComponent getGunObtainedText() {
+    public MutableComponent getBadGunObtainedText() {
         String url = "https://github.com/FloralSoda/Vulpine-Machinery-Forge/issues";
-        MutableComponent component = Component.translatable("message.vulpine_machinery.invalid_gun_obtained").withStyle(Style.EMPTY
+
+        return Component.translatable("message.vulpine_machinery.invalid_gun_obtained").withStyle(Style.EMPTY
                 .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(url)))
                 .withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url))
                 .withColor(TextColor.fromRgb(0x8888FF))
                 .withUnderlined(true));
-
-        return component;
     }
 
     @Override
@@ -234,7 +233,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
 
         if (isInvalid(stack)) {
             if (player.level.isClientSide)
-                player.sendSystemMessage(getGunObtainedText());
+                player.sendSystemMessage(getBadGunObtainedText());
             player.stopUsingItem();
             return;
         }
@@ -258,32 +257,40 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
 
+    public void setAiming(LivingEntity user, ItemStack stack, boolean state) {
+        if (isAiming(stack) != state) {
+            setCharged(stack, state);
+            var attribute = user.getAttribute(Attributes.MOVEMENT_SPEED);
+            if (attribute != null) {
+                if (state) {
+                    if (attribute.hasModifier(Properties.HipCarryModifierAttribute))
+                        attribute.removeModifier(Properties.HipCarryModifierAttribute);
+
+                    if (!attribute.hasModifier(Properties.AimCarryModifierAttribute))
+                        attribute.addTransientModifier(Properties.AimCarryModifierAttribute);
+                } else {
+                    if (attribute.hasModifier(Properties.AimCarryModifierAttribute))
+                        attribute.removeModifier(Properties.AimCarryModifierAttribute);
+
+                    if (!attribute.hasModifier(Properties.HipCarryModifierAttribute))
+                        attribute.addTransientModifier(Properties.HipCarryModifierAttribute);
+                }
+            }
+        }
+    }
+    public boolean isAiming(ItemStack stack) {
+        return isCharged(stack);
+    }
 
     @Override
     public void inventoryTick(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull Entity pEntity, int pSlotId, boolean pIsSelected) {
         super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
         if (!pLevel.isClientSide) {
             if (pEntity instanceof LivingEntity lEntity) {
-                var attribute = lEntity.getAttribute(Attributes.MOVEMENT_SPEED);
-                if (attribute != null) {
-                    if (pIsSelected) {
-                        if (lEntity.isCrouching() && !attribute.hasModifier(Properties.AimCarryModifierAttribute)) {
-                            if (attribute.hasModifier(Properties.HipCarryModifierAttribute)) {
-                                attribute.removeModifier(Properties.HipCarryModifierAttribute);
-                            }
-                            attribute.addTransientModifier(Properties.AimCarryModifierAttribute);
-                        } else if (!lEntity.isCrouching() && !attribute.hasModifier(Properties.HipCarryModifierAttribute)) {
-                            if (attribute.hasModifier(Properties.AimCarryModifierAttribute)) {
-                                attribute.removeModifier(Properties.AimCarryModifierAttribute);
-                            }
-                            attribute.addTransientModifier(Properties.HipCarryModifierAttribute);
-                        }
-                    } else {
-                        if (attribute.hasModifier(Properties.HipCarryModifierAttribute))
-                            attribute.removeModifier(Properties.HipCarryModifierAttribute);
-                        if (attribute.hasModifier(Properties.AimCarryModifierAttribute))
-                            attribute.removeModifier(Properties.AimCarryModifierAttribute);
-                    }
+                if (pIsSelected) {
+                    setAiming(lEntity, pStack, lEntity.isCrouching());
+                } else {
+                    setAiming(lEntity, pStack, false);
                 }
             }
         }
@@ -351,11 +358,6 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
 
     @Override
     public void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        //TODO
-
-        //Automatic
-        //Fire rate
-        //
         if (Properties.Automatic)
             pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.automatic"));
         if (!Properties.CanHipFire)
@@ -394,6 +396,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
                 pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.handle", handle.getDisplayName()));
 
             if (core.getItem() instanceof CoreItem coreItem) {
+                pTooltipComponents.add(Component.literal(""));
                 pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bullet_requirement", coreItem.Properties.BulletItem.getDefaultInstance().getDisplayName().getString().replaceAll("[\\[\\]]", "")));
             }
         } else if (isInvalid(pStack)) {

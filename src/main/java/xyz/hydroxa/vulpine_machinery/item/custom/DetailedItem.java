@@ -15,15 +15,12 @@ import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 
 import java.util.List;
 
-public abstract class DetailedItem extends Item {
+public abstract class DetailedItem extends Item implements IDetailedItem {
     public DetailedItem(Properties pProperties) {
         super(pProperties);
     }
 
-    public abstract void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced);
-
-    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+    public static void hoverTextAppender(IDetailedItem instance, @NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         KeyMapping shift = Minecraft.getInstance().options.keyShift;
         InputConstants.Key key = shift.getKey();
         int keyCode = key.getValue();
@@ -38,7 +35,7 @@ public abstract class DetailedItem extends Item {
                     isDown = GLFW.glfwGetMouseButton(windowHandle, keyCode) == GLFW.GLFW_PRESS;
                 }
                 if (isDown) {
-                    getDetailedTooltip(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+                    instance.getDetailedTooltip(pStack, pLevel, pTooltipComponents, pIsAdvanced);
                     return;
                 }
             } catch (Exception ex) {
@@ -47,5 +44,10 @@ public abstract class DetailedItem extends Item {
         }
 
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.more", shift.getKey().getDisplayName()));
+    }
+
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        hoverTextAppender(this, pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 }
