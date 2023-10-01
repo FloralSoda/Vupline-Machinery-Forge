@@ -10,7 +10,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import xyz.hydroxa.vulpine_machinery.effect.ModEffects;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
 
-public class SlimeCoreItem extends StandardCoreItem {
+public class SlimeCoreItem extends DamagingCoreItem {
     public static final int BASE_DURATION = 200;
 
     public SlimeCoreItem(Item.Properties pProperties, CoreProperties properties) {

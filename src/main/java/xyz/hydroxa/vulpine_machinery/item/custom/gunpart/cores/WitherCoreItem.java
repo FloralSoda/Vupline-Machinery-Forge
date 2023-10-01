@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.EntityHitResult;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
 
-public class WitherCoreItem extends StandardCoreItem {
+public class WitherCoreItem extends DamagingCoreItem {
     public static final int BASE_DURATION = 200;
     public static final int BASE_AMPLIFIER = 3;
 

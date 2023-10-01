@@ -9,7 +9,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
 
-public class BeanCoreItem extends StandardCoreItem {
+public class BeanCoreItem extends DamagingCoreItem {
     public BeanCoreItem(Item.Properties pProperties, CoreProperties properties) {
         super(pProperties, properties);
     }

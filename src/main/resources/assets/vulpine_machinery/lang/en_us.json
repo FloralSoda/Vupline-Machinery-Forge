@@ -65,6 +65,19 @@
 	"tooltip.vulpine_machinery.handle.accuracy": "§6Accuracy: §7x%.2f§r",
 	"tooltip.vulpine_machinery.handle.recoil": "§6Recoil: §7x%.2f§r",
 
+	"tooltip.vulpine_machinery.weapon.automatic": "Automatic",
+	"tooltip.vulpine_machinery.weapon.nohipfire": "Hip Firing Disabled",
+	"tooltip.vulpine_machinery.weapon.aimspeed": "§6Aiming Walk Speed: §7x%d§r",
+	"tooltip.vulpine_machinery.weapon.hipspeed": "§6Holding Walk Speed: §7x%d§r",
+	"tooltip.vulpine_machinery.weapon.bulletspeed": "§6Bullet Speed: §7%d§7m/s§r",
+	"tooltip.vulpine_machinery.weapon.recoil": "§6Recoil: §7%d§7°§r",
+	"tooltip.vulpine_machinery.weapon.variance": "§6Max Bullet Variance: §7%d§7°§r",
+	"tooltip.vulpine_machinery.weapon.dmg": "§6Base Damage: §7%d§7 hearts§r",
+	"tooltip.vulpine_machinery.weapon.reload": "§6Reload: §7%d§7/s§r",
+
+	"tooltip.vulpine_machinery.blueprint.recoil": "§6Base Recoil: §7%d§7°§r",
+	"tooltip.vulpine_machinery.blueprint.bulletspeed": "§6Base Bullet Speed: §7%d§7/s§r",
+
 	"blueprint.pepperbox": "Pepperbox",
 	"blueprint.rifle": "Rifle",
 

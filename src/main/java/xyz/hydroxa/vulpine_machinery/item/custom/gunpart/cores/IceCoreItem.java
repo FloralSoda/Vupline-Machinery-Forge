@@ -10,7 +10,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import xyz.hydroxa.vulpine_machinery.effect.ModEffects;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
 
-public class IceCoreItem extends StandardCoreItem {
+public class IceCoreItem extends DamagingCoreItem {
     public static final int BASE_DURATION_FREEZE = 100;
     public static final int BASE_DURATION_SLOWNESS = 600;
     public static final int BASE_AMPLIFIER_SLOWNESS = 2;

@@ -11,7 +11,7 @@ import xyz.hydroxa.vulpine_machinery.world.ModDamageSource;
 
 import java.util.Collection;
 
-public class SanguineCoreItem extends StandardCoreItem {
+public class SanguineCoreItem extends DamagingCoreItem {
     public SanguineCoreItem(Item.Properties pProperties, CoreProperties properties) {
         super(pProperties, properties);
     }

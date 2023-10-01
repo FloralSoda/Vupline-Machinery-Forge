@@ -3,6 +3,7 @@ package xyz.hydroxa.vulpine_machinery.item.custom;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -21,7 +22,23 @@ public class BlueprintItem extends DetailedItem {
 
     @Override
     public void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        //TODO
+        if (pLevel != null) {
+            CompoundTag tags = pStack.getOrCreateTag();
+            String print = tags.getString(TAG_PRINT_ID);
+            var recipe = pLevel.getRecipeManager().byKey(new ResourceLocation(print));
+            if (recipe.isPresent() && recipe.get().getResultItem().getItem() instanceof WeaponItem wi) {
+                if (wi.Properties.Automatic)
+                    pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.automatic"));
+                if (!wi.Properties.CanHipFire)
+                    pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.nohipfire"));
 
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.aimspeed", Math.round((wi.Properties.AimCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.hipspeed", Math.round((wi.Properties.HipCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.recoil", Math.round((wi.Properties.RecoilInDegrees) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.bulletspeed", Math.round((wi.Properties.BulletSpeed) * 100) / 100f));
+            }
+        }
     }
 
     @Override

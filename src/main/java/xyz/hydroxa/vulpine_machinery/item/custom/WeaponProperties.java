@@ -9,8 +9,6 @@ import java.util.UUID;
 public class WeaponProperties {
     public boolean CanHipFire;
     public boolean Automatic;
-    public int AimCarrySpeedMultiplier;
-    public int HipCarrySpeedMultiplier;
     public float BulletSpeed;
     public Item DefaultBarrel;
     public Item DefaultCore;
@@ -22,13 +20,11 @@ public class WeaponProperties {
     private final UUID hip_carry_uid = UUID.randomUUID();
     private final UUID aim_carry_uid = UUID.randomUUID();
 
-    public AttributeModifier HipCarryModifier = new AttributeModifier(hip_carry_uid.toString(), 1f, AttributeModifier.Operation.ADDITION);
-    public AttributeModifier AimCarryModifier = new AttributeModifier(aim_carry_uid.toString(), 1f, AttributeModifier.Operation.ADDITION);
+    public AttributeModifier HipCarryModifierAttribute = new AttributeModifier(hip_carry_uid.toString(), 0f, AttributeModifier.Operation.ADDITION);
+    public AttributeModifier AimCarryModifierAttribute = new AttributeModifier(aim_carry_uid.toString(), 0f, AttributeModifier.Operation.ADDITION);
 
     public WeaponProperties(ResourceLocation recipe, Item defaultBarrel, Item defaultCore, Item defaultBridge, Item defaultHandle) {
         CanHipFire = true;
-        AimCarrySpeedMultiplier = 0;
-        HipCarrySpeedMultiplier = 0;
         BulletSpeed = 6f;
         RecoilInDegrees = 2f;
         Automatic = false;
@@ -66,8 +62,8 @@ public class WeaponProperties {
      * @return Builder pattern.
      */
     public WeaponProperties carrySpeedModifier(float hipCarry, float aimCarry) {
-        AimCarryModifier = new AttributeModifier(aim_carry_uid.toString(), aimCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
-        HipCarryModifier = new AttributeModifier(hip_carry_uid.toString(), hipCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        AimCarryModifierAttribute = new AttributeModifier(aim_carry_uid.toString(), aimCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
+        HipCarryModifierAttribute = new AttributeModifier(hip_carry_uid.toString(), hipCarry, AttributeModifier.Operation.MULTIPLY_TOTAL);
         return this;
     }
 }

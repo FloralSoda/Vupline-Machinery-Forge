@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.EntityHitResult;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
 
-public class FlameCoreItem extends StandardCoreItem {
+public class FlameCoreItem extends DamagingCoreItem {
     public static final int BASE_FIRE_DURATION = 200;
     public FlameCoreItem(Item.Properties pProperties, CoreProperties properties) {
         super(pProperties, properties);

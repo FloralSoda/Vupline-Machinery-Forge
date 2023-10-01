@@ -22,7 +22,7 @@ import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 
 import java.util.List;
 
-public class WeaponItem extends Item implements Vanishable {
+public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mixin rendering to render these in the center when crouching
     public static final String TAG_PARTS = "Parts";
     public static final String TAG_PARTS_BARREL = "Barrel";
     public static final String TAG_PARTS_CORE = "Core";
@@ -203,6 +203,8 @@ public class WeaponItem extends Item implements Vanishable {
     public int getReloadInterval(ItemStack item) {
         BarrelItem barrel = getBarrel(item);
         BridgeItem bridge = getBridge(item);
+
+
         return (int)((float)barrel.Properties.TicksPerBulletReloaded / bridge.Properties.ReloadSpeedMultiplier);
     }
 
@@ -256,22 +258,22 @@ public class WeaponItem extends Item implements Vanishable {
                 var attribute = lEntity.getAttribute(Attributes.MOVEMENT_SPEED);
                 if (attribute != null) {
                     if (pIsSelected) {
-                        if (lEntity.isCrouching() && !attribute.hasModifier(Properties.AimCarryModifier)) {
-                            if (attribute.hasModifier(Properties.HipCarryModifier)) {
-                                attribute.removeModifier(Properties.HipCarryModifier);
+                        if (lEntity.isCrouching() && !attribute.hasModifier(Properties.AimCarryModifierAttribute)) {
+                            if (attribute.hasModifier(Properties.HipCarryModifierAttribute)) {
+                                attribute.removeModifier(Properties.HipCarryModifierAttribute);
                             }
-                            attribute.addTransientModifier(Properties.AimCarryModifier);
-                        } else if (!lEntity.isCrouching() && !attribute.hasModifier(Properties.HipCarryModifier)) {
-                            if (attribute.hasModifier(Properties.AimCarryModifier)) {
-                                attribute.removeModifier(Properties.AimCarryModifier);
+                            attribute.addTransientModifier(Properties.AimCarryModifierAttribute);
+                        } else if (!lEntity.isCrouching() && !attribute.hasModifier(Properties.HipCarryModifierAttribute)) {
+                            if (attribute.hasModifier(Properties.AimCarryModifierAttribute)) {
+                                attribute.removeModifier(Properties.AimCarryModifierAttribute);
                             }
-                            attribute.addTransientModifier(Properties.HipCarryModifier);
+                            attribute.addTransientModifier(Properties.HipCarryModifierAttribute);
                         }
                     } else {
-                        if (attribute.hasModifier(Properties.HipCarryModifier))
-                            attribute.removeModifier(Properties.HipCarryModifier);
-                        if (attribute.hasModifier(Properties.AimCarryModifier))
-                            attribute.removeModifier(Properties.AimCarryModifier);
+                        if (attribute.hasModifier(Properties.HipCarryModifierAttribute))
+                            attribute.removeModifier(Properties.HipCarryModifierAttribute);
+                        if (attribute.hasModifier(Properties.AimCarryModifierAttribute))
+                            attribute.removeModifier(Properties.AimCarryModifierAttribute);
                     }
                 }
             }
@@ -284,12 +286,27 @@ public class WeaponItem extends Item implements Vanishable {
         item.getOrCreateTag().putLong(TAG_LAST_SHOT, level.getGameTime());
     }
 
+    private float getBulletSpeed(BarrelItem barrel, BridgeItem bridge) {
+        return Properties.BulletSpeed * barrel.Properties.BulletSpeedMultiplier * bridge.Properties.BulletSpeedMultiplier;
+    }
+    private float getRecoil(BarrelItem barrel, HandleItem handle) {
+        return Properties.RecoilInDegrees * barrel.Properties.RecoilMultiplier * handle.Properties.RecoilMultiplier;
+    }
+
+    private float getVariance(BarrelItem barrel, HandleItem handle) {
+        return barrel.Properties.Variance / handle.Properties.AccuracyMultiplier;
+    }
+
+    private float getBaseDamage(BarrelItem barrel, CoreItem core) {
+        return BASE_DAMAGE * barrel.Properties.DamageMultiplier * core.Properties.DamageMultiplier;
+    }
+
     private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel, CoreItem core, BridgeItem bridge, HandleItem handle, InteractionHand hand) {
         if (!level.isClientSide) {
             for (int i = 0; i < Math.min(barrel.Properties.BulletsPerShot, getRemainingBullets(item)); i++) {
                 BulletProjectile projectile = new BulletProjectile(level, user, barrel.Properties.BulletType);
                 projectile.setCore(new ItemStack(core));
-                projectile.setDamage(BASE_DAMAGE * barrel.Properties.DamageMultiplier);
+                projectile.setDamage(getBaseDamage(barrel, core));
 
                 if (barrel.Properties.BulletType == BulletType.HandCannon) {
                     projectile.setPierceLevel((byte) 5);
@@ -310,16 +327,42 @@ public class WeaponItem extends Item implements Vanishable {
                 projectile.setPos(user.getPosition(1.0f).add(bulletOffset));
 
                 Vector3f lookVectorF = new Vector3f(lookVector);
-                projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), Properties.BulletSpeed * barrel.Properties.BulletSpeedMultiplier * bridge.Properties.BulletSpeedMultiplier, level.random.nextFloat() * (barrel.Properties.Variance / handle.Properties.AccuracyMultiplier));
+                projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), getBulletSpeed(barrel, bridge), level.random.nextFloat() * getVariance(barrel, handle));
                 level.addFreshEntity(projectile);
             }
 
-            user.setXRot(user.getXRot() - (Properties.RecoilInDegrees * barrel.Properties.RecoilMultiplier));
+            user.setXRot(user.getXRot() - getRecoil(barrel, handle));
             setFireCooldown(item, level);
             level.playSound(null, user.blockPosition(), barrel.Properties.SoundProvider.GetGunshotNearAudio(user, level, item), SoundSource.PLAYERS, 1.0F, 1.0f);
         } else {
-            user.setXRot(user.getXRot() - (Properties.RecoilInDegrees * barrel.Properties.RecoilMultiplier));
+            user.setXRot(user.getXRot() - getRecoil(barrel, handle));
         }
+    }
+
+    @Override
+    public void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        //TODO
+
+        //Automatic
+        //Fire rate
+        //
+        if (Properties.Automatic)
+            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.automatic"));
+        if (!Properties.CanHipFire)
+            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.nohipfire"));
+
+        BarrelItem barrel = getBarrel(pStack);
+        CoreItem core = getCore(pStack);
+        BridgeItem bridge = getBridge(pStack);
+        HandleItem handle = getHandle(pStack);
+
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.aimspeed", Math.round((Properties.AimCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.hipspeed", Math.round((Properties.HipCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.bulletspeed", Math.round(getBulletSpeed(barrel, bridge) * 100) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.recoil", Math.round(getRecoil(barrel, handle) * 100) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.variance", Math.round(getVariance(barrel, handle) * 100) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.dmg", Math.round(getBaseDamage(barrel, core) * 50) / 100f));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.reload", Math.round(200f / getReloadInterval(pStack)) / 100f));
     }
 
     @Override
@@ -346,6 +389,7 @@ public class WeaponItem extends Item implements Vanishable {
         } else if (isInvalid(pStack)) {
             pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bad_gun"));
         }
+        pTooltipComponents.add(Component.literal(""));
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
