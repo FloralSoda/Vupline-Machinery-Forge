@@ -7,6 +7,7 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
+import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 import xyz.hydroxa.vulpine_machinery.networking.packet.ReloadC2SPacket;
 
 public class ModMessages {
@@ -30,6 +31,11 @@ public class ModMessages {
                 .decoder(ReloadC2SPacket::new)
                 .encoder(ReloadC2SPacket::toBytes)
                 .consumerMainThread(ReloadC2SPacket::handle)
+                .add();
+        net.messageBuilder(AmmoSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(AmmoSyncS2CPacket::new)
+                .encoder(AmmoSyncS2CPacket::toBytes)
+                .consumerMainThread(AmmoSyncS2CPacket::handle)
                 .add();
     }
 

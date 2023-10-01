@@ -2,10 +2,12 @@ package xyz.hydroxa.vulpine_machinery.event;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
+import xyz.hydroxa.vulpine_machinery.client.AmmoHudOverlay;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 import xyz.hydroxa.vulpine_machinery.networking.packet.ReloadC2SPacket;
 import xyz.hydroxa.vulpine_machinery.util.KeyBinding;
@@ -27,6 +29,11 @@ public class ClientEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBinding.RELOAD_WEAPON_KEY);
+        }
+
+        @SubscribeEvent
+        public static void registerGuiOverlays(RegisterGuiOverlaysEvent guiOverlaysEvent) {
+            guiOverlaysEvent.registerAboveAll("ammo", AmmoHudOverlay.HUD_AMMO);
         }
     }
 }

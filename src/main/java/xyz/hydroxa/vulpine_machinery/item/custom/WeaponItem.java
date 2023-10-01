@@ -4,6 +4,7 @@ import com.mojang.math.Vector3f;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.*;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -19,6 +20,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
+import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
+import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 
 import java.util.List;
 
@@ -87,13 +90,6 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
             return null;
     }
 
-    public int consumeBullets(ItemStack item, int amount) {
-        int remaining = getRemainingBullets(item);
-        if (amount > remaining)
-            amount = remaining;
-        item.getOrCreateTag().putInt(TAG_BULLETS, remaining - amount);
-        return remaining - amount;
-    }
     public int getRemainingBullets(ItemStack item) {
         return item.getOrCreateTag().getInt(TAG_BULLETS);
     }
@@ -120,8 +116,22 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
             return true;
     }
 
+    public void changeAmmoLevel(LivingEntity user, ItemStack item, int amount) {
+        CompoundTag tags = item.getOrCreateTag();
+        int toSet = tags.getInt(TAG_BULLETS) + amount;
+        int capacity = getBulletCapacity(item);
+        if (toSet < 0)
+            toSet = 0;
+        else if (toSet > capacity)
+            toSet = capacity;
+
+        tags.putInt(TAG_BULLETS, toSet);
+
+        if (user instanceof ServerPlayer player)
+            ModMessages.sendToPlayer(new AmmoSyncS2CPacket(toSet, capacity), player);
+    }
     /**
-    Returns true if compatible bullets were found. Returns false if there weren't any bullets
+     Returns true if compatible bullets were found. Returns false if there weren't any bullets
      */
     public boolean reload(LivingEntity user, ItemStack item) {
         int remainingBullets = getRemainingBullets(item);
@@ -147,7 +157,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
                 }
             }
 
-            tags.putInt(TAG_BULLETS, remainingBullets + 1);
+            changeAmmoLevel(user, item, 1);
             tags.putLong(TAG_LAST_RELOAD, user.getLevel().getGameTime());
             return true;
         }
@@ -188,7 +198,6 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
                         setReloading(itemstack, false);
                         BarrelItem barrel = getBarrel(itemstack);
                         shootProjectile(pLevel, pPlayer, itemstack, barrel, getCore(itemstack), getBridge(itemstack), getHandle(itemstack), pUsedHand);
-                        consumeBullets(itemstack, barrel.Properties.BulletsPerShot);
                     }
                 }
             } else if (canReload(pPlayer, itemstack)) {
@@ -238,7 +247,6 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
             }
         } else if (count % barrel.Properties.TicksPerShot == 0) {
             shootProjectile(player.level, player, stack, barrel, getCore(stack), getBridge(stack), getHandle(stack), player.getUsedItemHand());
-            consumeBullets(stack, barrel.Properties.BulletsPerShot);
         }
     }
 
@@ -249,6 +257,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
 
         return super.finishUsingItem(pStack, pLevel, pLivingEntity);
     }
+
 
     @Override
     public void inventoryTick(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull Entity pEntity, int pSlotId, boolean pIsSelected) {
@@ -330,6 +339,7 @@ public class WeaponItem extends DetailedItem implements Vanishable { //TODO: Mix
                 projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), getBulletSpeed(barrel, bridge), level.random.nextFloat() * getVariance(barrel, handle));
                 level.addFreshEntity(projectile);
             }
+            changeAmmoLevel(user, item, -barrel.Properties.BulletsPerShot);
 
             user.setXRot(user.getXRot() - getRecoil(barrel, handle));
             setFireCooldown(item, level);
