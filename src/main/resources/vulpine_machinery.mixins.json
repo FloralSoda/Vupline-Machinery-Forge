@@ -8,6 +8,7 @@
     "SlimeCoreApplicatorMixin"
   ],
   "client": [
+    "StopViewBobbingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

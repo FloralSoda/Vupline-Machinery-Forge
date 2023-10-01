@@ -19,13 +19,14 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
+import xyz.hydroxa.vulpine_machinery.item.IConditionalBobber;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 
 import java.util.List;
 
-public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
+public class WeaponItem extends DetailedCrossbowItem implements Vanishable, IConditionalBobber {
     public static final String TAG_PARTS = "Parts";
     public static final String TAG_PARTS_BARREL = "Barrel";
     public static final String TAG_PARTS_CORE = "Core";
@@ -105,12 +106,14 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
         return item.getOrCreateTag().getLong(TAG_LAST_RELOAD);
     }
     public boolean canReload(LivingEntity user, ItemStack item) {
+        if (getRemainingBullets(item) >= getBulletCapacity(item))
+            return false;
         if (user instanceof Player player) {
             if (player.getAbilities().instabuild)
                 return true;
             else {
                 Item bulletItem = getBulletItem(item);
-                return player.getInventory().contains(new ItemStack(bulletItem));
+                return getRemainingBullets(item) < getBulletCapacity(item) && player.getInventory().contains(new ItemStack(bulletItem));
             }
         } else
             return true;
@@ -228,15 +231,19 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
     }
 
     @Override
-    public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
-        super.onUsingTick(stack, player, count);
+    public void onUseTick(@NotNull Level pLevel, @NotNull LivingEntity pLivingEntity, @NotNull ItemStack pStack, int pCount) {
+    }
 
+    @Override
+    public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         if (isInvalid(stack)) {
             if (player.level.isClientSide)
                 player.sendSystemMessage(getBadGunObtainedText());
             player.stopUsingItem();
             return;
         }
+
+        player.swingTime = 0;
 
         BarrelItem barrel = getBarrel(stack);
         if (getReloading(stack)) {
@@ -247,6 +254,12 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
         } else if (count % barrel.Properties.TicksPerShot == 0) {
             shootProjectile(player.level, player, stack, barrel, getCore(stack), getBridge(stack), getHandle(stack), player.getUsedItemHand());
         }
+    }
+
+    @Override
+    public void releaseUsing(@NotNull ItemStack pStack, @NotNull Level pLevel, @NotNull LivingEntity pEntityLiving, int pTimeLeft) {
+        setReloading(pStack, false);
+        pStack.getOrCreateTag().putLong(TAG_LAST_RELOAD, pEntityLiving.getLevel().getGameTime());
     }
 
     @Override
@@ -465,5 +478,12 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable {
         ItemStack def = new ItemStack(this);
 
         return outfitWith(def, Properties.DefaultBarrel, Properties.DefaultCore, Properties.DefaultBridge, Properties.DefaultHandle);
+    }
+
+    @Override
+    public boolean shouldBob(ItemStack stack) {
+        if (stack.getItem() instanceof WeaponItem wi)
+            return !wi.getReloading(stack);
+        return true;
     }
 }

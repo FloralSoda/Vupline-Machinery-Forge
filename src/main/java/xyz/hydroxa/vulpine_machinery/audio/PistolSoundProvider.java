@@ -1,7 +1,6 @@
 package xyz.hydroxa.vulpine_machinery.audio;
 
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -9,7 +8,7 @@ import net.minecraft.world.level.Level;
 public class PistolSoundProvider implements SoundProvider {
     @Override
     public SoundEvent GetReloadAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return SoundEvents.CROSSBOW_QUICK_CHARGE_1;
+        return ModSoundEvents.RELOAD.get();
     }
 
     @Override
@@ -24,6 +23,6 @@ public class PistolSoundProvider implements SoundProvider {
 
     @Override
     public SoundEvent GetEmptyFireAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return SoundEvents.TRIPWIRE_CLICK_OFF;
+        return ModSoundEvents.EMPTY_FIRE.get();
     }
 }

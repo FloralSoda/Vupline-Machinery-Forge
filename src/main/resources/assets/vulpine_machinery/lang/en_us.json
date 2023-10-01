@@ -28,7 +28,7 @@
 	"item.vulpine_machinery.core_flame": "Flaming Gun Core",
 	"item.vulpine_machinery.core_health": "Healing Gun Core",
 	"item.vulpine_machinery.core_ice": "Frosting Gun Core",
-	"item.vulpine_machinery.core_prismarine": "Prismarine Gun Core NYI",
+	"item.vulpine_machinery.core_prismarine": "Prismarine Gun Core (NYI)",
 	"item.vulpine_machinery.core_shield": "Shielding Gun Core",
 	"item.vulpine_machinery.core_slime": "Slimy Gun Core",
 	"item.vulpine_machinery.core_standard": "Standard Gun Core",
@@ -88,6 +88,8 @@
 	"sounds.vulpine_machinery.heavy_gunshot": "Heavy Gunshot",
 	"sounds.vulpine_machinery.hand_cannon": "Thumping Gunshot",
 	"sounds.vulpine_machinery.muffled_gunshot": "Muffled Shot",
+	"sounds.vulpine_machinery.empty_fire": "Click",
+	"sounds.vulpine_machinery.reload": "Reloading Gun",
 
 	"effect.vulpine_machinery.slimy": "Slimed",
 	"effect.vulpine_machinery.freeze": "Frozen",

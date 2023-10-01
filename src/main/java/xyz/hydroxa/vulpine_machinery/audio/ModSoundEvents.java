@@ -19,6 +19,8 @@ public class ModSoundEvents {
     public static final RegistryObject<SoundEvent> HAND_CANNON_FAR = registerSoundEvent("hand_cannon_far");
     public static final RegistryObject<SoundEvent> HAND_CANNON_NEAR = registerSoundEvent("hand_cannon_near");
     public static final RegistryObject<SoundEvent> MUFFLED_GUNSHOT = registerSoundEvent("muffled_gunshot");
+    public static final RegistryObject<SoundEvent> EMPTY_FIRE = registerSoundEvent("empty_fire");
+    public static final RegistryObject<SoundEvent> RELOAD = registerSoundEvent("reload");
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(VulpineMachineryMod.MOD_ID, name)));

@@ -40,5 +40,17 @@
 		"sounds": [
 			"vulpine_machinery:muffled_gunshot"
 		]
+	},
+	"empty_fire": {
+		"subtitle": "sounds.vulpine_machinery.empty_fire",
+		"sounds": [
+			"vulpine_machinery:empty_fire"
+		]
+	},
+	"reload": {
+		"subtitle": "sounds.vulpine_machinery.reload",
+		"sounds": [
+			"vulpine_machinery:reload"
+		]
 	}
 }

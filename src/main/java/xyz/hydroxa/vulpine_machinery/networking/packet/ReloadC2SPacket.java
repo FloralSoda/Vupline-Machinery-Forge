@@ -27,23 +27,21 @@ public class ReloadC2SPacket {
             ServerPlayer player = context.getSender();
             if (player != null) {
                 ItemStack item = player.getMainHandItem();
-                if (item.getItem() instanceof WeaponItem wi) {
-                    if (key_pressed && !player.isUsingItem()) {
-                        wi.setReloading(item, true);
-                        player.startUsingItem(InteractionHand.MAIN_HAND);
-                    }
-                    else {
-                        wi.setReloading(item, false);
-                        player.stopUsingItem();
-                    }
-                } else {
+                InteractionHand hand = InteractionHand.MAIN_HAND;
+
+                if (!(item.getItem() instanceof WeaponItem)) {
                     item = player.getOffhandItem();
-                    if (item.getItem() instanceof WeaponItem wi) {
-                        if (key_pressed && !player.isUsingItem()) {
-                            wi.setReloading(item, true);
-                            player.startUsingItem(InteractionHand.OFF_HAND);
-                        }
-                        else {
+                    hand = InteractionHand.OFF_HAND;
+                }
+
+                if (item.getItem() instanceof WeaponItem wi) {
+                    if (!player.isUsingItem()) {
+                        if (key_pressed) {
+                            if (wi.canReload(player, item)) {
+                                wi.setReloading(item, true);
+                                player.startUsingItem(hand);
+                            }
+                        } else {
                             wi.setReloading(item, false);
                             player.stopUsingItem();
                         }

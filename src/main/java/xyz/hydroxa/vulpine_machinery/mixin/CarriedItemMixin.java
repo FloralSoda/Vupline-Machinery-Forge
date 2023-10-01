@@ -17,7 +17,7 @@ import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 public class CarriedItemMixin {
     @Shadow public ServerPlayer player;
 
-    @Inject(method = "handleSetCarriedItem(Lnet/minecraft/network/protocol/game/ServerboundSetCarriedItemPacket;)V", at = @At(value = "JUMP", ordinal = 1))
+    @Inject(method = "handleSetCarriedItem(Lnet/minecraft/network/protocol/game/ServerboundSetCarriedItemPacket;)V", at = @At(value = "JUMP", ordinal = 1, shift = At.Shift.AFTER))
     public void syncAmmoData(ServerboundSetCarriedItemPacket pPacket, CallbackInfo ci) {
         ItemStack heldItem = player.getInventory().getItem(pPacket.getSlot());
         if (heldItem.getItem() instanceof WeaponItem wi) {
