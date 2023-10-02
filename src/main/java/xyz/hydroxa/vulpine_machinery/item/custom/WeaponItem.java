@@ -182,6 +182,11 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
     }
 
     @Override
+    public boolean canContinueUsing(ItemStack oldStack, ItemStack newStack) {
+        return super.canContinueUsing(oldStack, newStack);
+    }
+
+    @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, Player pPlayer, @NotNull InteractionHand pUsedHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pUsedHand);
 
