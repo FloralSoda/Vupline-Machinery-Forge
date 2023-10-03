@@ -2,20 +2,34 @@ package xyz.hydroxa.vulpine_machinery.item.custom.gunpart.cores;
 
 import com.mojang.math.Vector3f;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreProperties;
+
+import java.util.List;
 
 public class EnderCoreItem extends DamagingCoreItem {
 
     public EnderCoreItem(Item.Properties pProperties, CoreProperties properties) {
         super(pProperties, properties);
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.core.ender"));
     }
 
     @Override

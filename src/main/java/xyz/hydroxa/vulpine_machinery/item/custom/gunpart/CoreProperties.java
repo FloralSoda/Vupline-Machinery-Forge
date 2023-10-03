@@ -10,7 +10,6 @@ public class CoreProperties {
     public boolean IsSingular;
     public Item BulletItem;
     public float DamageMultiplier;
-
     public CoreProperties() {
         IsSingular = false;
         DamageMultiplier = 1f;

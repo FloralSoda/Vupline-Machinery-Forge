@@ -3,9 +3,11 @@ package xyz.hydroxa.vulpine_machinery.event;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
+import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
 import xyz.hydroxa.vulpine_machinery.item.custom.WeaponItem;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
@@ -23,6 +25,13 @@ public class ModEvents {
                 if (item.getItem() instanceof WeaponItem wi)
                     ModMessages.sendToPlayer(new AmmoSyncS2CPacket(wi.getRemainingBullets(item), wi.getBulletCapacity(item)), player);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingHurt(LivingHurtEvent event) {
+        if (event.getSource().getDirectEntity() instanceof BulletProjectile) {
+            event.getEntity().invulnerableTime = 0;
         }
     }
 }

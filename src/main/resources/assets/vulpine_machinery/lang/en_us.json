@@ -34,6 +34,7 @@
 	"item.vulpine_machinery.core_standard": "Standard Gun Core",
 	"item.vulpine_machinery.core_wither": "Withering Gun Core",
 	"item.vulpine_machinery.core_sanguine": "Sanguine Gun Core",
+	"item.vulpine_machinery.core_redstone": "Redstone Gun Core (NYI)",
 
 	"key.category.vulpine_machinery.vulpine_machinery": "Vulpine Machinery",
 	"key.vulpine_machinery.reload": "Reload Weapon",
@@ -45,7 +46,9 @@
 	"tooltip.vulpine_machinery.core":   "§6Core: §7%s§r",
 	"tooltip.vulpine_machinery.bridge": "§6Bridge: §7%s§r",
 	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
+
 	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
+	"tooltip.vulpine_machinery.nyi": "Using a NYI item could result in crashes, unexpected behaviour or a waste of materials!%nPlease be certain you know why you're crafting one",
 	"tooltip.vulpine_machinery.more": "§7Press §f[%s] §7to see more",
 	"tooltip.vulpine_machinery.bad_gun": "Invalid gun!",
 
@@ -77,6 +80,21 @@
 
 	"tooltip.vulpine_machinery.blueprint.recoil": "§6Base Recoil: §7%d§7°§r",
 	"tooltip.vulpine_machinery.blueprint.bulletspeed": "§6Base Bullet Speed: §7%d§7/s§r",
+
+	"tooltip.vulpine_machinery.core.assassin": "After %d seconds, target is inflicted with Poison %d for %d seconds",
+	"tooltip.vulpine_machinery.core.bean": "Gives target beans",
+	"tooltip.vulpine_machinery.core.standard": "Deals Damage",
+	"tooltip.vulpine_machinery.core.ender": "Teleports user to where the bullet lands",
+	"tooltip.vulpine_machinery.core.flame": "Ignites target for %d seconds",
+	"tooltip.vulpine_machinery.core.health": "Heals target as much as the damage would hurt",
+	"tooltip.vulpine_machinery.core.ice": "Freezes target for %d seconds then slows for %d seconds",
+	"tooltip.vulpine_machinery.core.redstone": "NYI",
+	"tooltip.vulpine_machinery.core.prismarine": "NYI",
+	"tooltip.vulpine_machinery.core.cursed": "NYI",
+	"tooltip.vulpine_machinery.core.sanguine": "Takes 1 heart from user. Doubles duration and potency of effects from user, then transfers them to target",
+	"tooltip.vulpine_machinery.core.shield": "Gives %d hearts of absorption for %d minutes",
+	"tooltip.vulpine_machinery.core.slime": "Causes target to treat all blocks like slime blocks for %d seconds",
+	"tooltip.vulpine_machinery.core.wither": "Afflicts target with Wither %d for %d seconds",
 
 	"blueprint.pepperbox": "Pepperbox",
 	"blueprint.rifle": "Rifle",

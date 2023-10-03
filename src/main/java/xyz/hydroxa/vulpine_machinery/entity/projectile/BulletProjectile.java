@@ -5,11 +5,14 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -20,25 +23,36 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.entity.ModEntities;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.BulletType;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.CoreItem;
+import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
+import xyz.hydroxa.vulpine_machinery.networking.packet.HitSyncS2CPacket;
 
 public class BulletProjectile extends Projectile {
     private static final EntityDataAccessor<ItemStack> DATA_CORE_ITEM_STACK = SynchedEntityData.defineId(BulletProjectile.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<Float> DATA_DAMAGE = SynchedEntityData.defineId(BulletProjectile.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Byte> PIERCE_LEVEL = SynchedEntityData.defineId(BulletProjectile.class, EntityDataSerializers.BYTE);
+    private static BulletType type = null;
+
     public BulletProjectile(Level pLevel, LivingEntity shooter, BulletType bulletType) {
         super(switch (bulletType) {
+            case Unset -> {
+                VulpineMachineryMod.LOGGER.warn("Bullet Projectile was created with an unset type. Please prefer to use a real type (Shares properties with BulletType.PISTOL)");
+                yield ModEntities.BULLET_PISTOL.get();
+            }
             case Pistol -> ModEntities.BULLET_PISTOL.get();
             case Heavy -> ModEntities.BULLET_HEAVY.get();
             case HandCannon -> ModEntities.BULLET_HAND_CANNON.get();
             case Muffled -> ModEntities.BULLET_MUFFLED.get();
         }, pLevel);
+        type = bulletType;
         this.setOwner(shooter);
     }
     public BulletProjectile(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        type = BulletType.Unset;
     }
 
     protected void defineSynchedData() {
@@ -93,6 +107,18 @@ public class BulletProjectile extends Projectile {
         var core = getCore();
         if (core != null) {
             core.onEntityHit(this, getOwner(), pResult, getDamage());
+        }
+        if (getOwner() instanceof ServerPlayer sp)
+            ModMessages.sendToPlayer(new HitSyncS2CPacket(true, pResult.getEntity() instanceof Player), sp);
+        if (type.CanBreakShields && pResult.getEntity() instanceof Player le) {
+            if (le.isBlocking()) {
+                ItemStack shield = le.getMainHandItem();
+                if (!(shield.getItem() instanceof ShieldItem))
+                    shield = le.getOffhandItem();
+                if (shield.getItem() instanceof ShieldItem) {
+                    le.getCooldowns().addCooldown(shield.getItem(), 100);
+                }
+            }
         }
     }
 

@@ -24,15 +24,16 @@ public class BulletRenderer extends EntityRenderer<BulletProjectile> {
         itemRenderer = pContext.getItemRenderer();
     }
 
-    public void render(BulletProjectile pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+    public void render(BulletProjectile pEntity, float pEntityYaw, float pPartialTicks, @NotNull PoseStack pMatrixStack, @NotNull MultiBufferSource pBuffer, int pPackedLight) {
         if (pEntity.tickCount >= 2 || !(entityRenderDispatcher.camera.getEntity().distanceToSqr(pEntity) < 12.25D)) {
             pMatrixStack.pushPose();
             pMatrixStack.mulPose(entityRenderDispatcher.cameraOrientation());
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(180.0F));
             Item toRender = switch (BulletType) {
-                case Pistol, Muffled -> ModItems.BULLET_PROJECTILE_SMALL.get();
+                case Unset, Pistol, Muffled -> ModItems.BULLET_PROJECTILE_SMALL.get();
                 case Heavy, HandCannon -> ModItems.BULLET_PROJECTILE_LARGE.get();
             };
+
             itemRenderer.renderStatic(toRender.getDefaultInstance(), ItemTransforms.TransformType.GROUND, pPackedLight, OverlayTexture.NO_OVERLAY, pMatrixStack, pBuffer, pEntity.getId());
             pMatrixStack.popPose();
             super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
@@ -54,7 +55,7 @@ public class BulletRenderer extends EntityRenderer<BulletProjectile> {
     @Override
     public @NotNull ResourceLocation getTextureLocation(@NotNull BulletProjectile _1) {
         return switch (BulletType) {
-            case Muffled, Pistol -> new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/entity/bullet.png");
+            case Unset, Muffled, Pistol -> new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/entity/bullet.png");
             case Heavy, HandCannon ->
                     new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/entity/bullet_heavy.png");
         };

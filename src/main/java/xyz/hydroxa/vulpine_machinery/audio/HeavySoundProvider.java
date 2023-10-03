@@ -1,28 +1,27 @@
 package xyz.hydroxa.vulpine_machinery.audio;
 
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class HeavySoundProvider implements SoundProvider {
     @Override
-    public SoundEvent GetReloadAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.RELOAD.get();
+    public SoundVolume GetReloadAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.RELOAD.get(), 10f);
     }
 
     @Override
-    public SoundEvent GetGunshotNearAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.HEAVY_GUNSHOT_NEAR.get();
+    public SoundVolume GetGunshotNearAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.HEAVY_GUNSHOT_NEAR.get(), 64f);
     }
 
     @Override
-    public SoundEvent GetGunshotFarAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.HEAVY_GUNSHOT_FAR.get();
+    public SoundVolume GetGunshotFarAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.HEAVY_GUNSHOT_FAR.get(), 128f);
     }
 
     @Override
-    public SoundEvent GetEmptyFireAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.EMPTY_FIRE.get();
+    public SoundVolume GetEmptyFireAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.EMPTY_FIRE.get(), 10f);
     }
 }

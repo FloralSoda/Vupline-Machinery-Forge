@@ -76,7 +76,7 @@ public class ModItems {
             () -> new BarrelItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new BarrelProperties("Slug", new HandCannonSoundProvider())
                     .damageMultiplier(2f)
                     .bulletType(BulletType.HandCannon)
-                    .variance(2)
+                    .variance(6)
                     .ticksPerBulletReloaded(20)
                     .ticksPerShot(15)
                     .bulletSpeedMultiplier(0.5f)
@@ -100,8 +100,8 @@ public class ModItems {
             () -> new BeanCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_CURSED = ITEMS.register("core_cursed",
-            () -> new DamagingCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
-                    .bulletItem(BULLET_SOUL.get())));
+            () -> new NotYetImplementedItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB)/*, new CoreProperties()
+                    .bulletItem(BULLET_SOUL.get())*/));
     public static final RegistryObject<Item> CORE_ENDER = ITEMS.register("core_ender",
             () -> new EnderCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_ENDER.get())
@@ -116,8 +116,8 @@ public class ModItems {
             () -> new IceCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_PRISMARINE = ITEMS.register("core_prismarine",
-            () -> new DamagingCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
-                    .bulletItem(BULLET_PRISMARINE.get()))); //TODO
+            () -> new NotYetImplementedItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB/*, new CoreProperties()
+                    .bulletItem(BULLET_PRISMARINE.get()*/))); //TODO
     public static final RegistryObject<Item> CORE_SHIELD = ITEMS.register("core_shield",
             () -> new ShieldCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
@@ -150,7 +150,7 @@ public class ModItems {
                             CORE_STANDARD.get(),
                             BRIDGE.get(),
                             HANDLE.get())
-                            .carrySpeedModifier(0, -0.3f)));
+                            .carrySpeedModifier(0, -0.8f)));
 
 
     public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",

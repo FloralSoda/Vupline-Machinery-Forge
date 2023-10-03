@@ -1,28 +1,27 @@
 package xyz.hydroxa.vulpine_machinery.audio;
 
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class MuffledSoundProvider implements SoundProvider {
     @Override
-    public SoundEvent GetReloadAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.RELOAD.get();
+    public SoundVolume GetReloadAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.RELOAD.get(), 10f);
     }
 
     @Override
-    public SoundEvent GetGunshotNearAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.MUFFLED_GUNSHOT.get();
+    public SoundVolume GetGunshotNearAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.MUFFLED_GUNSHOT.get(), 16f);
     }
 
     @Override
-    public SoundEvent GetGunshotFarAudio(LivingEntity user, Level level, ItemStack weapon) {
+    public SoundVolume GetGunshotFarAudio(LivingEntity user, Level level, ItemStack weapon) {
         return null;
     }
 
     @Override
-    public SoundEvent GetEmptyFireAudio(LivingEntity user, Level level, ItemStack weapon) {
-        return ModSoundEvents.EMPTY_FIRE.get();
+    public SoundVolume GetEmptyFireAudio(LivingEntity user, Level level, ItemStack weapon) {
+        return new SoundVolume(ModSoundEvents.EMPTY_FIRE.get(), 5f);
     }
 }

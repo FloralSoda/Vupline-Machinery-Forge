@@ -19,6 +19,7 @@ public class AmmoHudOverlay {
 
     private static final ResourceLocation FILLED = new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/gui/hud/ammobar_filled.png");
     private static final ResourceLocation EMPTY = new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/gui/hud/ammobar_empty.png");
+    private static final ResourceLocation MARKER = new ResourceLocation(VulpineMachineryMod.MOD_ID, "textures/gui/hud/hitmarker.png");
 
     private static float floatify(int value, float upper) {
         return value / upper;
@@ -48,6 +49,12 @@ public class AmmoHudOverlay {
                     RenderSystem.setShaderTexture(0, EMPTY);
                 GuiComponent.blit(poseStack, x, (y + (SEGMENTS / 2)) - i, 0, 0, 2, 1, 1, 2);
             }
+        }
+        if (ClientAmmoData.showHitMarker()) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
+            RenderSystem.setShaderTexture(0, MARKER);
+            GuiComponent.blit(poseStack, screenWidth / 2 - 8, screenHeight / 2 - 8, 0, 0, 16, 16, 16, 16);
         }
     });
 }

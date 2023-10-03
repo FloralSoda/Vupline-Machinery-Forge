@@ -1,0 +1,25 @@
+{
+	"type":"minecraft:crafting_shaped",
+	"pattern": [
+		" SP",
+		"SCS",
+		"RS "
+	],
+	"key": {
+		"S": {
+			"item": "minecraft:redstone_block"
+		},
+		"P": {
+			"item": "minecraft:redstone_dust"
+		},
+		"R": {
+			"item": "minecraft:slime_ball"
+		},
+		"C": {
+			"item": "vulpine_machinery:core_standard"
+		}
+	},
+	"result": {
+		"item": "vulpine_machinery:core_prismarine"
+	}
+}
