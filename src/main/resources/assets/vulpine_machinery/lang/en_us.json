@@ -48,7 +48,7 @@
 	"tooltip.vulpine_machinery.handle": "§6Handle: §7%s§r",
 
 	"tooltip.vulpine_machinery.bullet_requirement": "§7This requires §6%ss§7 to fire§r",
-	"tooltip.vulpine_machinery.nyi": "Using a NYI item could result in crashes, unexpected behaviour or a waste of materials!%nPlease be certain you know why you're crafting one",
+	"tooltip.vulpine_machinery.nyi": "Using a NYI item could result in crashes, unexpected behaviour or a waste of materials! Please be certain you know why you're crafting one",
 	"tooltip.vulpine_machinery.more": "§7Press §f[%s] §7to see more",
 	"tooltip.vulpine_machinery.bad_gun": "Invalid gun!",
 
@@ -90,8 +90,8 @@
 	"tooltip.vulpine_machinery.core.flame": "Ignites target for %d seconds",
 	"tooltip.vulpine_machinery.core.health": "Heals target as much as the damage would hurt",
 	"tooltip.vulpine_machinery.core.ice": "Freezes target for %d seconds then slows for %d seconds",
-	"tooltip.vulpine_machinery.core.redstone": "NYI",
-	"tooltip.vulpine_machinery.core.prismarine": "NYI",
+	"tooltip.vulpine_machinery.core.redstone": "Bullets temporarily powers the block it hits",
+	"tooltip.vulpine_machinery.core.prismarine": "Shoots guardian beams instead of bullets. Deals more damage to entities in water",
 	"tooltip.vulpine_machinery.core.cursed": "NYI",
 	"tooltip.vulpine_machinery.core.sanguine": "Takes 1 heart from user. Doubles duration and potency of effects from user, then transfers them to target",
 	"tooltip.vulpine_machinery.core.shield": "Gives %d hearts of absorption for %d minutes",
@@ -100,6 +100,7 @@
 
 	"blueprint.pepperbox": "Pepperbox",
 	"blueprint.rifle": "Rifle",
+	"blueprint.": "Invalid Blueprint",
 
 	"item.vulpine_machinery.blueprint": "Blueprint: %s",
 	"item.vulpine_machinery.beans": "Beans",
