@@ -27,7 +27,7 @@ public class SlimeCoreItem extends DamagingCoreItem {
     @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.core.shield", BASE_DURATION / 20));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.core.slime", BASE_DURATION / 20));
     }
     @Override
     public void onTick(Projectile entity, Entity owner) {
