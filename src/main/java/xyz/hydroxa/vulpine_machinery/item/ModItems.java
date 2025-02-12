@@ -118,6 +118,9 @@ public class ModItems {
     public static final RegistryObject<Item> CORE_PRISMARINE = ITEMS.register("core_prismarine",
             () -> new NotYetImplementedItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB/*, new CoreProperties()
                     .bulletItem(BULLET_PRISMARINE.get()*/))); //TODO
+    public static final RegistryObject<Item> CORE_REDSTONE = ITEMS.register("core_redstone",
+            () -> new RedstoneCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+                    .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_SHIELD = ITEMS.register("core_shield",
             () -> new ShieldCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
@@ -154,7 +157,7 @@ public class ModItems {
 
 
     public static final RegistryObject<Item> BLUEPRINT = ITEMS.register("blueprint",
-            () -> new BlueprintItem(new Item.Properties().stacksTo(4).tab(ModCreativeModeTab.MACHINERY_TAB)));
+            () -> new BlueprintItem(new Item.Properties().stacksTo(1).tab(ModCreativeModeTab.MACHINERY_TAB)));
     public static final RegistryObject<Item> BULLET_PROJECTILE_SMALL = ITEMS.register("z_bullet_render_helper_small",
             () -> new RenderHelperItem(new Item.Properties().stacksTo(1000000)));
     public static final RegistryObject<Item> BULLET_PROJECTILE_LARGE = ITEMS.register("z_bullet_render_helper_large",
