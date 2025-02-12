@@ -24,6 +24,8 @@ public class ModEvents {
 
                 if (item.getItem() instanceof WeaponItem wi)
                     ModMessages.sendToPlayer(new AmmoSyncS2CPacket(wi.getRemainingBullets(item), wi.getBulletCapacity(item)), player);
+                else
+                    ModMessages.sendToPlayer(AmmoSyncS2CPacket.as_invisible(), player);
             }
         }
     }

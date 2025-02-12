@@ -49,6 +49,8 @@ public class AmmoHudOverlay {
                     RenderSystem.setShaderTexture(0, EMPTY);
                 GuiComponent.blit(poseStack, x, (y + (SEGMENTS / 2)) - i, 0, 0, 2, 1, 1, 2);
             }
+
+            RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
         }
         if (ClientAmmoData.showHitMarker()) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);

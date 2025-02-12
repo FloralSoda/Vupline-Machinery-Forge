@@ -26,7 +26,6 @@ import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
 import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 
 import java.util.List;
-import java.util.Random;
 
 public class WeaponItem extends DetailedCrossbowItem implements Vanishable, IConditionalBobber {
     public static final String TAG_PARTS = "Parts";
@@ -39,7 +38,6 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
     public static final String TAG_LAST_SHOT = "LastShot";
     public static final String TAG_BARREL_VARIANT = "CustomModelData";
     public static final String TAG_RELOADING = "IsReloading";
-    public static final String TAG_SEED = "Seed";
 
     public static final float BASE_DAMAGE = 15f;
     public final WeaponProperties Properties;
@@ -343,19 +341,8 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
         return BASE_DAMAGE * barrel.Properties.DamageMultiplier * core.Properties.DamageMultiplier;
     }
 
-    private float getNextSpread(long seed, long time) {
-        long and = seed ^ time;
-        double result = Double.longBitsToDouble(and);
-        if (!Double.isNaN(result) && Double.isFinite(result))
-            return (float)result % 1.0f;
-        else
-            return (new Random()).nextFloat();
-    }
-
     private void shootProjectile(Level level, LivingEntity user, ItemStack item, BarrelItem barrel, CoreItem core, BridgeItem bridge, HandleItem handle, InteractionHand hand) {
         if (!level.isClientSide) {
-            long seed = item.getOrCreateTag().getLong(TAG_SEED);
-
             for (int i = 0; i < Math.min(barrel.Properties.BulletsPerShot, getRemainingBullets(item)); i++) {
                 BulletProjectile projectile = new BulletProjectile(level, user, barrel.Properties.BulletType);
                 projectile.setCore(new ItemStack(core));
@@ -380,8 +367,8 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
                 projectile.setPos(user.getPosition(1.0f).add(bulletOffset));
 
                 Vector3f lookVectorF = new Vector3f(lookVector);
-                float variance = getVariance(barrel, handle);
-                projectile.shoot(lookVectorF.x() + (variance * getNextSpread(seed, level.getGameTime())), lookVectorF.y() + (variance * getNextSpread(seed, level.getGameTime() << 8)), lookVectorF.z() + (variance * getNextSpread(seed, level.getGameTime() << 7)), getBulletSpeed(barrel, bridge), 0);
+
+                projectile.shoot(lookVectorF.x(), lookVectorF.y(), lookVectorF.z(), getBulletSpeed(barrel, bridge), getVariance(barrel, handle));
                 level.addFreshEntity(projectile);
             }
             changeAmmoLevel(user, item, -barrel.Properties.BulletsPerShot);
@@ -464,8 +451,6 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
 
     public ItemStack outfitWith(ItemStack weaponItem, ItemStack barrelItem, ItemStack coreItem, ItemStack bridgeItem, ItemStack handleItem) {
         CompoundTag tag = weaponItem.getOrCreateTag();
-        if (!tag.hasUUID(TAG_SEED))
-            tag.putLong(TAG_SEED, (new Random()).nextLong());
 
         CompoundTag parts = tag.getCompound(TAG_PARTS);
 

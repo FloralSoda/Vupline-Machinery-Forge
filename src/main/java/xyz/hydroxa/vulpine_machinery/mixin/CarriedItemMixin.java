@@ -23,7 +23,7 @@ public class CarriedItemMixin {
         if (heldItem.getItem() instanceof WeaponItem wi) {
             ModMessages.sendToPlayer(new AmmoSyncS2CPacket(wi.getRemainingBullets(heldItem), wi.getBulletCapacity(heldItem)), player);
         } else {
-            ModMessages.sendToPlayer(new AmmoSyncS2CPacket(-1, 0), player);
+            ModMessages.sendToPlayer(AmmoSyncS2CPacket.as_invisible(), player);
         }
     }
 }

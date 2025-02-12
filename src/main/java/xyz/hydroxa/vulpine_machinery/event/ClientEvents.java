@@ -1,22 +1,11 @@
 package xyz.hydroxa.vulpine_machinery.event;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.client.AmmoHudOverlay;
-import xyz.hydroxa.vulpine_machinery.item.custom.WeaponItem;
-import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
-import xyz.hydroxa.vulpine_machinery.networking.packet.ReloadC2SPacket;
-import xyz.hydroxa.vulpine_machinery.util.KeyBinding;
 
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = VulpineMachineryMod.MOD_ID, value = Dist.CLIENT)

@@ -10,7 +10,7 @@
 			"item": "minecraft:redstone_block"
 		},
 		"P": {
-			"item": "minecraft:redstone_dust"
+			"item": "minecraft:redstone"
 		},
 		"R": {
 			"item": "minecraft:slime_ball"
@@ -20,6 +20,6 @@
 		}
 	},
 	"result": {
-		"item": "vulpine_machinery:core_prismarine"
+		"item": "vulpine_machinery:core_redstone"
 	}
 }

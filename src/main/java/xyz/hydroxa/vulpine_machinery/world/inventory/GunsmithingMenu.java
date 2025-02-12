@@ -53,6 +53,11 @@ public class GunsmithingMenu extends AbstractContainerMenu {
             if (!player.getLevel().isClientSide)
                 GunsmithingMenu.this.slotsChanged(this);
         }
+
+        @Override
+        public int getMaxStackSize() {
+            return GunsmithingMenu.this.modMode ? 1 : super.getMaxStackSize();
+        }
     };
 
     public GunsmithingMenu(final int pContainerId, Inventory pPlayerInventory, @Nullable FriendlyByteBuf _b) {
@@ -177,10 +182,24 @@ public class GunsmithingMenu extends AbstractContainerMenu {
 
         resultSlots.clearContent();
         if (stack.getItem() instanceof BlueprintItem) {
+            if (modMode) {
+                if (!inputSlots.isEmpty())
+                    for (int i = 0; i < inputSlots.getContainerSize(); ++i)
+                        inputSlots.getItem(i).shrink(1);
+            }
+            for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i)
+                quickMoveStack(player, i);
+
             modMode = false;
             var recipe = player.getLevel().getRecipeManager()
                     .byKey(new ResourceLocation(stack.getOrCreateTag().getString(BlueprintItem.TAG_PRINT_ID)));
             recipe.ifPresent(value -> currentRecipe = (GunsmithingRecipe) value);
+
+            if (currentRecipe != null && currentRecipe.matches(inputSlots, player.getLevel())) {
+                resultSlots.setItem(0, currentRecipe.assemble(inputSlots));
+            } else {
+                resultSlots.clearContent();
+            }
         } else if (stack.getItem() instanceof WeaponItem wi) {
             modMode = true;
 
@@ -204,6 +223,10 @@ public class GunsmithingMenu extends AbstractContainerMenu {
             currentRecipe = null;
             if (modMode) {
                 inputSlots.clearContent();
+                for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
+                    inputSlots.getItem(i).shrink(1);
+                    quickMoveStack(player, i);
+                }
                 modMode = false;
             } else if (!inputSlots.isEmpty()) {
                 for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
@@ -229,16 +252,31 @@ public class GunsmithingMenu extends AbstractContainerMenu {
             if (modMode) {
                 blueprintSlot.clearContent();
                 modMode = false;
+                for (int i = 0; i < inputSlots.getContainerSize(); ++i) {
+                    inputSlots.getItem(i).shrink(1);
+                }
+            } else {
+                for (int i = 0; i < inputSlots.getContainerSize(); ++i) {
+                    inputSlots.getItem(i).shrink(1);
+                }
             }
-            inputSlots.clearContent();
         }
     }
 
     public void removed(@NotNull Player pPlayer) {
         super.removed(pPlayer);
         this.access.execute((level, blockPos) -> {
+            if (this.modMode) {
+                if (!resultSlots.isEmpty()) {
+                    for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
+                        inputSlots.getItem(i).shrink(1);
+                    }
+                    this.clearContainer(pPlayer, resultSlots);
+                }
+            } else {
+                this.clearContainer(pPlayer, blueprintSlot);
+            }
             this.clearContainer(pPlayer, inputSlots);
-            this.clearContainer(pPlayer, blueprintSlot);
         });
     }
 }

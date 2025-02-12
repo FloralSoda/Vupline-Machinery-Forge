@@ -82,7 +82,17 @@ public class GunsmithingRecipe implements Recipe<SimpleContainer> {
     public @NotNull ItemStack assemble(@NotNull SimpleContainer pContainer) {
         if (weaponOutput.getItem() instanceof WeaponItem wi ) {
             ItemStack newWeapon = weaponOutput.copy();
-            return wi.outfitWith(newWeapon, pContainer.getItem(barrelSlot), pContainer.getItem(coreSlot), pContainer.getItem(bridgeSlot), pContainer.getItem(handleSlot));
+            ItemStack barrel = pContainer.getItem(barrelSlot).copy();
+            ItemStack core = pContainer.getItem(coreSlot).copy();
+            ItemStack bridge = pContainer.getItem(bridgeSlot).copy();
+            ItemStack handle = pContainer.getItem(handleSlot).copy();
+
+            barrel.setCount(1);
+            core.setCount(1);
+            bridge.setCount(1);
+            handle.setCount(1);
+
+            return wi.outfitWith(newWeapon, barrel, core, bridge, handle);
         } else {
             return weaponOutput;
         }

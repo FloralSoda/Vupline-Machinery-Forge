@@ -52,6 +52,8 @@
 	"tooltip.vulpine_machinery.more": "§7Press §f[%s] §7to see more",
 	"tooltip.vulpine_machinery.bad_gun": "Invalid gun!",
 
+	"tooltip.vulpine_machinery.blueprint": "This must be in the table before crafting the gun",
+
 	"tooltip.vulpine_machinery.barrel.guns":     "§6Compatible with: §7%s§r",
 	"tooltip.vulpine_machinery.barrel.capacity": "§6Base Capacity: §7%.2f§r",
 	"tooltip.vulpine_machinery.barrel.shots":    "§6Bullets per shot: §7%.2f§r",

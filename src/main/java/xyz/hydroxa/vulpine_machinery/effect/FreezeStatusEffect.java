@@ -13,7 +13,7 @@ public class FreezeStatusEffect extends MobEffect {
     @Override
     public void applyEffectTick(@NotNull LivingEntity pLivingEntity, int pAmplifier) {
         super.applyEffectTick(pLivingEntity, pAmplifier);
-        pLivingEntity.teleportTo(pLivingEntity.getX(), pLivingEntity.getY(), pLivingEntity.getZ());
+
 
         //TODO: Spawn particles to make entity seem frozen
     }

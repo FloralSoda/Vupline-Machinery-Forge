@@ -24,6 +24,10 @@ public class AmmoSyncS2CPacket {
         buf.writeInt(capacity);
     }
 
+    public static AmmoSyncS2CPacket as_invisible() {
+        return new AmmoSyncS2CPacket(-1, 0);
+    }
+
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
