@@ -27,16 +27,16 @@ public class BlueprintItem extends DetailedItem {
             CompoundTag tags = pStack.getOrCreateTag();
             String print = tags.getString(TAG_PRINT_ID);
             var recipe = pLevel.getRecipeManager().byKey(new ResourceLocation(print));
-            if (recipe.isPresent() && recipe.get().getResultItem().getItem() instanceof WeaponItem wi) {
-                if (wi.Properties.Automatic)
+            if (recipe.isPresent() && recipe.get().getResultItem().getItem() instanceof WeaponItem weaponItem) {
+                if (weaponItem.Properties.Automatic)
                     pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.automatic"));
-                if (!wi.Properties.CanHipFire)
+                if (!weaponItem.Properties.CanHipFire)
                     pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.nohipfire"));
 
-                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.aimspeed", Math.round((wi.Properties.AimCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
-                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.hipspeed", Math.round((wi.Properties.HipCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
-                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.recoil", Math.round((wi.Properties.RecoilInDegrees) * 100) / 100f));
-                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.bulletspeed", Math.round((wi.Properties.BulletSpeed) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.aimspeed", Math.round((weaponItem.Properties.AimCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.hipspeed", Math.round((weaponItem.Properties.HipCarryModifierAttribute.getAmount() + 1) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.recoil", Math.round((weaponItem.Properties.RecoilInDegrees) * 100) / 100f));
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.blueprint.bulletspeed", Math.round((weaponItem.Properties.BulletSpeed) * 100) / 100f));
             }
         }
     }
