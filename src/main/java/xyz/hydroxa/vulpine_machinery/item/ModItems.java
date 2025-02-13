@@ -12,10 +12,8 @@ import xyz.hydroxa.vulpine_machinery.audio.HandCannonSoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.HeavySoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.MuffledSoundProvider;
 import xyz.hydroxa.vulpine_machinery.audio.PistolSoundProvider;
-import xyz.hydroxa.vulpine_machinery.item.custom.BlueprintItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.RenderHelperItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.WeaponItem;
-import xyz.hydroxa.vulpine_machinery.item.custom.WeaponProperties;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
+import xyz.hydroxa.vulpine_machinery.item.custom.*;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.cores.*;
 
@@ -24,13 +22,13 @@ public class ModItems {
             DeferredRegister.create(ForgeRegistries.ITEMS, VulpineMachineryMod.MOD_ID);
 
     public static final RegistryObject<Item> BULLET = ITEMS.register("bullet",
-            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
+            () -> new ComparableItem(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB), ItemOrder.Bullets));
     public static final RegistryObject<Item> BULLET_ENDER = ITEMS.register("bullet_ender",
-            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
+            () -> new ComparableItem(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB), ItemOrder.Bullets));
     public static final RegistryObject<Item> BULLET_PRISMARINE = ITEMS.register("bullet_prismarine",
-            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
+            () -> new ComparableItem(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB), ItemOrder.Bullets));
     public static final RegistryObject<Item> BULLET_SOUL = ITEMS.register("bullet_soul",
-            () -> new Item(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB)));
+            () -> new ComparableItem(new Item.Properties().stacksTo(16).tab(ModCreativeModeTab.MACHINERY_TAB), ItemOrder.Bullets));
 
     public static final RegistryObject<Item> BEANS = ITEMS.register("beans",
             () -> new Item(new Item.Properties().food(new FoodProperties.Builder().fast().nutrition(1).saturationMod(0).build()).tab(ModCreativeModeTab.MACHINERY_TAB)));

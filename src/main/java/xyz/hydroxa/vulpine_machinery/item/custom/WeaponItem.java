@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import xyz.hydroxa.vulpine_machinery.audio.SoundVolume;
 import xyz.hydroxa.vulpine_machinery.entity.projectile.BulletProjectile;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 import xyz.hydroxa.vulpine_machinery.item.IConditionalBobber;
 import xyz.hydroxa.vulpine_machinery.item.custom.gunpart.*;
 import xyz.hydroxa.vulpine_machinery.networking.ModMessages;
@@ -27,7 +28,7 @@ import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
 
 import java.util.List;
 
-public class WeaponItem extends DetailedCrossbowItem implements Vanishable, IConditionalBobber {
+public class WeaponItem extends DetailedCrossbowItem implements Vanishable, IConditionalBobber, IComparisonItem {
     public static final String TAG_PARTS = "Parts";
     public static final String TAG_PARTS_BARREL = "Barrel";
     public static final String TAG_PARTS_CORE = "Core";
@@ -44,6 +45,10 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
     public WeaponItem(Properties pProperties, WeaponProperties properties) {
         super(pProperties);
         Properties = properties;
+    }
+
+    public ItemOrder getPriority() {
+        return ItemOrder.Weapon;
     }
 
     @Override

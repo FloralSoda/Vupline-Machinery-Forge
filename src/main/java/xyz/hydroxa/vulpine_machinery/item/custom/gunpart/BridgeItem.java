@@ -6,6 +6,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 import xyz.hydroxa.vulpine_machinery.item.custom.DetailedItem;
 
 import java.util.List;
@@ -22,5 +23,9 @@ public class BridgeItem extends DetailedItem {
     public void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bridge.reload", Properties.ReloadSpeedMultiplier));
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.bridge.recoil", Properties.BulletSpeedMultiplier));
+    }
+
+    public ItemOrder getPriority() {
+        return ItemOrder.Bridges;
     }
 }

@@ -56,5 +56,6 @@ public class ClientEvents {
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent guiOverlaysEvent) {
             guiOverlaysEvent.registerAboveAll("ammo", AmmoHudOverlay.HUD_AMMO);
         }
+
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 import xyz.hydroxa.vulpine_machinery.item.custom.DetailedItem;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public abstract class CoreItem extends DetailedItem {
     public void onEntityHit(Projectile entity, Entity owner, EntityHitResult hitResult, float baseDamage) {}
 
     public void onBlockHit(Projectile entity, Entity owner, HitResult hitResult) {}
+
+    public ItemOrder getPriority() {
+        return ItemOrder.Cores;
+    }
 }

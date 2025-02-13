@@ -10,6 +10,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 
 import java.util.List;
 
@@ -18,6 +19,10 @@ public class BlueprintItem extends DetailedItem {
 
     public BlueprintItem(Properties pProperties) {
         super(pProperties);
+    }
+
+    public ItemOrder getPriority() {
+        return ItemOrder.Blueprints;
     }
 
     @Override
@@ -44,7 +49,8 @@ public class BlueprintItem extends DetailedItem {
     @Override
     public void fillItemCategory(@NotNull CreativeModeTab pCategory, @NotNull NonNullList<ItemStack> pItems) {
         if (allowedIn(pCategory)) {
-            pItems.add(getDefaultInstance());
+            pItems.add(getBlueprintOf("vulpine_machinery:weaponry/pepperbox"));
+            pItems.add(getBlueprintOf("vulpine_machinery:weaponry/rifle"));
         } else {
             super.fillItemCategory(pCategory, pItems);
         }
@@ -62,12 +68,16 @@ public class BlueprintItem extends DetailedItem {
         return super.getName(pStack);
     }
 
-    @Override
-    public @NotNull ItemStack getDefaultInstance() {
+    public @NotNull ItemStack getBlueprintOf(String recipe) {
         ItemStack def = new ItemStack(this);
         CompoundTag tag = def.getOrCreateTag();
 
-        tag.putString(TAG_PRINT_ID, "vulpine_machinery:weaponry/pepperbox");
+        tag.putString(TAG_PRINT_ID, recipe);
         return def;
+    }
+
+    @Override
+    public @NotNull ItemStack getDefaultInstance() {
+        return getBlueprintOf("vulpine_machinery:weaponry/pepperbox");
     }
 }

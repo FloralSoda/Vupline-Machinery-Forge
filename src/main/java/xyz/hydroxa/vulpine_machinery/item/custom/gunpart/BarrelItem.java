@@ -8,6 +8,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 import xyz.hydroxa.vulpine_machinery.item.custom.DetailedItem;
 
 import java.util.List;
@@ -49,5 +50,8 @@ public class BarrelItem extends DetailedItem {
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.barrel.damage", Properties.DamageMultiplier));
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.barrel.speed", Properties.BulletSpeedMultiplier));
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.barrel.recoil", Properties.BulletsPerShot));
+    }
+    public ItemOrder getPriority() {
+        return ItemOrder.Barrels;
     }
 }

@@ -15,7 +15,7 @@ import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 
 import java.util.List;
 
-public abstract class DetailedItem extends Item implements IDetailedItem {
+public abstract class DetailedItem extends Item implements IDetailedItem, IComparisonItem {
     public DetailedItem(Properties pProperties) {
         super(pProperties);
     }

@@ -6,6 +6,7 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import xyz.hydroxa.vulpine_machinery.enums.ItemOrder;
 import xyz.hydroxa.vulpine_machinery.item.custom.DetailedItem;
 
 import java.util.List;
@@ -21,5 +22,9 @@ public class HandleItem extends DetailedItem {
     public void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.handle.accuracy", Properties.AccuracyMultiplier));
         pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.handle.recoil", Properties.RecoilMultiplier));
+    }
+
+    public ItemOrder getPriority() {
+        return ItemOrder.Handles;
     }
 }
