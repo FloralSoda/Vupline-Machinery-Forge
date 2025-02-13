@@ -3,6 +3,8 @@ package xyz.hydroxa.vulpine_machinery.world.inventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,6 +13,7 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.block.ModBlocks;
 import xyz.hydroxa.vulpine_machinery.item.ModItems;
 import xyz.hydroxa.vulpine_machinery.item.custom.BlueprintItem;
@@ -46,6 +49,11 @@ public class GunsmithingMenu extends AbstractContainerMenu {
                 GunsmithingMenu.this.recipeChanged(this);
             }
         }
+
+        @Override
+        public boolean canAddItem(@NotNull ItemStack pStack) {
+            return super.canAddItem(pStack);
+        }
     };
     protected final SimpleContainer inputSlots = new SimpleContainer(6) {
         public void setChanged() {
@@ -56,7 +64,7 @@ public class GunsmithingMenu extends AbstractContainerMenu {
 
         @Override
         public int getMaxStackSize() {
-            return GunsmithingMenu.this.modMode ? 1 : super.getMaxStackSize();
+            return 1;
         }
     };
 
@@ -73,7 +81,15 @@ public class GunsmithingMenu extends AbstractContainerMenu {
 
         addSlot(
                 new Slot(blueprintSlot, inputSlot, 10, 30) {
-                    public boolean mayPlace(@NotNull ItemStack stack) { return stack.is(ModItems.BLUEPRINT.get()) || stack.getItem() instanceof WeaponItem; }
+                    public boolean mayPlace(@NotNull ItemStack stack) {
+                        return (stack.is(ModItems.BLUEPRINT.get()) || stack.getItem() instanceof WeaponItem) && !modMode;
+                    }
+
+                    @Override
+                    public boolean mayPickup(Player pPlayer) {
+                        return !modMode;
+                    }
+
                     public int getMaxStackSize() { return 1; }
                 }
         );
@@ -108,7 +124,7 @@ public class GunsmithingMenu extends AbstractContainerMenu {
 
         for(int i = 0; i < 3; ++i) {
             for(int j = 0; j < 9; ++j) {
-                this.addSlot(new Slot(pPlayerInventory, j + i * 9 + 9, invStartX + j * 18, invStartY + i * 18));
+                this.addSlot(new Slot(pPlayerInventory, j + i * 9 + InventoryMenu.INV_SLOT_START, invStartX + j * 18, invStartY + i * 18));
             }
         }
 
@@ -180,26 +196,16 @@ public class GunsmithingMenu extends AbstractContainerMenu {
     public void recipeChanged(SimpleContainer pContainer) {
         ItemStack stack = pContainer.getItem(0);
 
+        clearContainer(player, inputSlots);
         resultSlots.clearContent();
-        if (stack.getItem() instanceof BlueprintItem) {
-            if (modMode) {
-                if (!inputSlots.isEmpty())
-                    for (int i = 0; i < inputSlots.getContainerSize(); ++i)
-                        inputSlots.getItem(i).shrink(1);
-            }
-            for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i)
-                quickMoveStack(player, i);
 
+        if (stack.getItem() instanceof BlueprintItem) {
             modMode = false;
+
             var recipe = player.getLevel().getRecipeManager()
                     .byKey(new ResourceLocation(stack.getOrCreateTag().getString(BlueprintItem.TAG_PRINT_ID)));
             recipe.ifPresent(value -> currentRecipe = (GunsmithingRecipe) value);
 
-            if (currentRecipe != null && currentRecipe.matches(inputSlots, player.getLevel())) {
-                resultSlots.setItem(0, currentRecipe.assemble(inputSlots));
-            } else {
-                resultSlots.clearContent();
-            }
         } else if (stack.getItem() instanceof WeaponItem wi) {
             modMode = true;
 
@@ -219,20 +225,9 @@ public class GunsmithingMenu extends AbstractContainerMenu {
             inputSlots.setItem(GunsmithingRecipe.handleSlot,ItemStack.of(parts.getCompound(WeaponItem.TAG_PARTS_HANDLE)));
 
             resultSlots.setItem(0, stack.copy());
-        } else {
+        } else { //Blueprint was removed. Weapons cannot be removed once placed inside.
             currentRecipe = null;
-            if (modMode) {
-                inputSlots.clearContent();
-                for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
-                    inputSlots.getItem(i).shrink(1);
-                    quickMoveStack(player, i);
-                }
-                modMode = false;
-            } else if (!inputSlots.isEmpty()) {
-                for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
-                    quickMoveStack(player, i);
-                }
-            }
+            clearContainer(player, inputSlots);
         }
     }
 
@@ -247,36 +242,27 @@ public class GunsmithingMenu extends AbstractContainerMenu {
         }
     }
 
-    public void takeRecipe(ResultContainer pContainer) {
+    public void takeRecipe(@NotNull ResultContainer pContainer) {
         if (pContainer.isEmpty()) {
+            VulpineMachineryMod.LOGGER.debug("Recipe Take");
+            inputSlots.clearContent();
             if (modMode) {
                 blueprintSlot.clearContent();
                 modMode = false;
-                for (int i = 0; i < inputSlots.getContainerSize(); ++i) {
-                    inputSlots.getItem(i).shrink(1);
-                }
-            } else {
-                for (int i = 0; i < inputSlots.getContainerSize(); ++i) {
-                    inputSlots.getItem(i).shrink(1);
-                }
             }
         }
     }
 
     public void removed(@NotNull Player pPlayer) {
         super.removed(pPlayer);
-        this.access.execute((level, blockPos) -> {
-            if (this.modMode) {
-                if (!resultSlots.isEmpty()) {
-                    for (int i = 1; i < inputSlots.getContainerSize() + 1; ++i) {
-                        inputSlots.getItem(i).shrink(1);
-                    }
-                    this.clearContainer(pPlayer, resultSlots);
-                }
+        access.execute(((level, blockPos) -> {
+            clearContainer(player, inputSlots);
+            if (modMode) {
+                level.playSound(pPlayer, blockPos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0f, 1.0f);
             } else {
-                this.clearContainer(pPlayer, blueprintSlot);
+                clearContainer(player, blueprintSlot);
             }
-            this.clearContainer(pPlayer, inputSlots);
-        });
+            resultSlots.clearContent();
+        }));
     }
 }
