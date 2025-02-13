@@ -9,7 +9,7 @@ public enum ItemOrder {
     Cores(5),
     Bullets(6),
     Item(99);
-    int priority = 99;
+    int priority;
 
     ItemOrder(int priority) {
         this.priority = priority;

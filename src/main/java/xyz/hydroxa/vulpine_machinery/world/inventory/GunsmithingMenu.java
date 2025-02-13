@@ -86,7 +86,7 @@ public class GunsmithingMenu extends AbstractContainerMenu {
                     }
 
                     @Override
-                    public boolean mayPickup(Player pPlayer) {
+                    public boolean mayPickup(@NotNull Player pPlayer) {
                         return !modMode;
                     }
 
