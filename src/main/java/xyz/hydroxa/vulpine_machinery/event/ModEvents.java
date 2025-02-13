@@ -1,8 +1,10 @@
 package xyz.hydroxa.vulpine_machinery.event;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
+import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,6 +36,20 @@ public class ModEvents {
     public static void onLivingHurt(LivingHurtEvent event) {
         if (event.getSource().getDirectEntity() instanceof BulletProjectile) {
             event.getEntity().invulnerableTime = 0;
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEquipmentChange(LivingEquipmentChangeEvent event) {
+        LivingEntity entity = event.getEntity();
+        if (entity instanceof ServerPlayer player) {
+            if (player.getMainHandItem().getItem() instanceof WeaponItem wi) {
+                ModMessages.sendToPlayer(new AmmoSyncS2CPacket(wi.getRemainingBullets(player.getMainHandItem()), wi.getBulletCapacity(player.getMainHandItem())), player);
+            } else if (player.getOffhandItem().getItem() instanceof WeaponItem wi) {
+                ModMessages.sendToPlayer(new AmmoSyncS2CPacket(wi.getRemainingBullets(player.getOffhandItem()), wi.getBulletCapacity(player.getOffhandItem())), player);
+            } else {
+                ModMessages.sendToPlayer(AmmoSyncS2CPacket.as_invisible(), player);
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package xyz.hydroxa.vulpine_machinery.event;
 
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ContainerScreenEvent;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -10,6 +11,11 @@ import xyz.hydroxa.vulpine_machinery.client.AmmoHudOverlay;
 public class ClientEvents {
     @Mod.EventBusSubscriber(modid = VulpineMachineryMod.MOD_ID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
+        @SubscribeEvent
+        public static void onInventoryChange(ContainerScreenEvent event) {
+
+        }
+
         private static boolean reloadWasDown = false;
 //        @SubscribeEvent
 //        public static void onKeyInput(InputEvent.Key event) {
@@ -56,6 +62,5 @@ public class ClientEvents {
         public static void registerGuiOverlays(RegisterGuiOverlaysEvent guiOverlaysEvent) {
             guiOverlaysEvent.registerAboveAll("ammo", AmmoHudOverlay.HUD_AMMO);
         }
-
     }
 }

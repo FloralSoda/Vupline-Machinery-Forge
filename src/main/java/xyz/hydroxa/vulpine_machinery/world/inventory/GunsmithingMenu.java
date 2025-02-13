@@ -258,7 +258,7 @@ public class GunsmithingMenu extends AbstractContainerMenu {
         access.execute(((level, blockPos) -> {
             clearContainer(player, inputSlots);
             if (modMode) {
-                level.playSound(pPlayer, blockPos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0f, 1.0f);
+                level.playSound(null, blockPos, SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 1.0f, 1.0f);
             } else {
                 clearContainer(player, blueprintSlot);
             }

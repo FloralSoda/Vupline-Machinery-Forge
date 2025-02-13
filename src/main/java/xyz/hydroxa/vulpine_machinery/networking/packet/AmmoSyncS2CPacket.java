@@ -25,7 +25,7 @@ public class AmmoSyncS2CPacket {
     }
 
     public static AmmoSyncS2CPacket as_invisible() {
-        return new AmmoSyncS2CPacket(-1, 0);
+        return new AmmoSyncS2CPacket((byte) -1, (byte) 0);
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
