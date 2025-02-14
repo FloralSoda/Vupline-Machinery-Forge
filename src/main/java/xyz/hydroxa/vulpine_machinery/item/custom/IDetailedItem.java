@@ -11,4 +11,8 @@ import java.util.List;
 
 public interface IDetailedItem {
    void getDetailedTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced);
+   default void getComponentsTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {}
+   default boolean hasComponents() {
+      return false;
+   }
 }

@@ -20,30 +20,42 @@ public abstract class DetailedItem extends Item implements IDetailedItem, ICompa
         super(pProperties);
     }
 
-    public static void hoverTextAppender(IDetailedItem instance, @NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
-        KeyMapping shift = Minecraft.getInstance().options.keyShift;
-        InputConstants.Key key = shift.getKey();
-        int keyCode = key.getValue();
-
-        if (keyCode != InputConstants.UNKNOWN.getValue()) {
+    public static boolean checkKeyPress(InputConstants.Key key) {
+        if (key.getValue() != InputConstants.UNKNOWN.getValue()) {
             long windowHandle = Minecraft.getInstance().getWindow().getWindow();
             try {
                 boolean isDown = false;
                 if (key.getType() == InputConstants.Type.KEYSYM) {
-                    isDown = InputConstants.isKeyDown(windowHandle, keyCode);
+                    isDown = InputConstants.isKeyDown(windowHandle, key.getValue());
                 } else if (key.getType() == InputConstants.Type.MOUSE){
-                    isDown = GLFW.glfwGetMouseButton(windowHandle, keyCode) == GLFW.GLFW_PRESS;
+                    isDown = GLFW.glfwGetMouseButton(windowHandle, key.getValue()) == GLFW.GLFW_PRESS;
                 }
                 if (isDown) {
-                    instance.getDetailedTooltip(pStack, pLevel, pTooltipComponents, pIsAdvanced);
-                    return;
+                    return true;
                 }
             } catch (Exception ex) {
                 VulpineMachineryMod.LOGGER.error("Failed to handle key press for detailed item tooltip", ex);
             }
         }
 
-        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.more", shift.getKey().getDisplayName()));
+        return false;
+    }
+    public static void hoverTextAppender(IDetailedItem instance, @NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        KeyMapping shift = Minecraft.getInstance().options.keyShift;
+        KeyMapping command = Minecraft.getInstance().options.keySprint;
+        InputConstants.Key detailKey = shift.getKey();
+        InputConstants.Key componentsKey = command.getKey();
+
+        if (checkKeyPress(detailKey)) {
+            instance.getDetailedTooltip(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        } else if (checkKeyPress(componentsKey)) {
+            instance.getComponentsTooltip(pStack, pLevel, pTooltipComponents, pIsAdvanced);
+        } else {
+            pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.more", shift.getKey().getDisplayName()));
+            if (instance.hasComponents()) {
+                pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.more", command.getKey().getDisplayName()));
+            }
+        }
     }
 
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {

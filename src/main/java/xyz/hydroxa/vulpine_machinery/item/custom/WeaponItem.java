@@ -409,6 +409,32 @@ public class WeaponItem extends DetailedCrossbowItem implements Vanishable, ICon
     }
 
     @Override
+    public void getComponentsTooltip(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
+        BarrelItem barrel = getBarrel(pStack);
+        CoreItem core = getCore(pStack);
+        BridgeItem bridge = getBridge(pStack);
+        HandleItem handle = getHandle(pStack);
+
+        pTooltipComponents.add(Component.literal(" "));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.component", barrel.getDefaultInstance().getHoverName()));
+        barrel.getDetailedTooltip(barrel.getDefaultInstance(), pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.literal(" "));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.component", core.getDefaultInstance().getHoverName()));
+        core.getDetailedTooltip(core.getDefaultInstance(), pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.literal(" "));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.component", bridge.getDefaultInstance().getHoverName()));
+        bridge.getDetailedTooltip(bridge.getDefaultInstance(), pLevel, pTooltipComponents, pIsAdvanced);
+        pTooltipComponents.add(Component.literal(" "));
+        pTooltipComponents.add(Component.translatable("tooltip.vulpine_machinery.weapon.component", handle.getDefaultInstance().getHoverName()));
+        handle.getDetailedTooltip(handle.getDefaultInstance(), pLevel, pTooltipComponents, pIsAdvanced);
+    }
+
+    @Override
+    public boolean hasComponents() {
+        return true;
+    }
+
+    @Override
     public void appendHoverText(@NotNull ItemStack pStack, @Nullable Level pLevel, @NotNull List<Component> pTooltipComponents, @NotNull TooltipFlag pIsAdvanced) {
         if (pStack.getItem() instanceof WeaponItem) {
             CompoundTag tags = pStack.getOrCreateTag();
