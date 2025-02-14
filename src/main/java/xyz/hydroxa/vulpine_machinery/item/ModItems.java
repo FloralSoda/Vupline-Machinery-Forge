@@ -98,8 +98,8 @@ public class ModItems {
             () -> new BeanCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET.get())));
     public static final RegistryObject<Item> CORE_CURSED = ITEMS.register("core_cursed",
-            () -> new NotYetImplementedItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB)/*, new CoreProperties()
-                    .bulletItem(BULLET_SOUL.get())*/));
+            () -> new CursedCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
+                    .bulletItem(BULLET_SOUL.get())));
     public static final RegistryObject<Item> CORE_ENDER = ITEMS.register("core_ender",
             () -> new EnderCoreItem(new Item.Properties().tab(ModCreativeModeTab.MACHINERY_TAB), new CoreProperties()
                     .bulletItem(BULLET_ENDER.get())

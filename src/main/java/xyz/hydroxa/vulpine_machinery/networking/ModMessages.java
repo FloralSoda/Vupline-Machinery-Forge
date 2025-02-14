@@ -8,6 +8,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 import xyz.hydroxa.vulpine_machinery.VulpineMachineryMod;
 import xyz.hydroxa.vulpine_machinery.networking.packet.AmmoSyncS2CPacket;
+import xyz.hydroxa.vulpine_machinery.networking.packet.ComboSyncS2CPacket;
 import xyz.hydroxa.vulpine_machinery.networking.packet.HitSyncS2CPacket;
 import xyz.hydroxa.vulpine_machinery.networking.packet.ReloadC2SPacket;
 
@@ -42,6 +43,11 @@ public class ModMessages {
                 .decoder(HitSyncS2CPacket::new)
                 .encoder(HitSyncS2CPacket::toBytes)
                 .consumerMainThread(HitSyncS2CPacket::handle)
+                .add();
+        net.messageBuilder(ComboSyncS2CPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(ComboSyncS2CPacket::new)
+                .encoder(ComboSyncS2CPacket::toBytes)
+                .consumerMainThread(ComboSyncS2CPacket::handle)
                 .add();
     }
 
